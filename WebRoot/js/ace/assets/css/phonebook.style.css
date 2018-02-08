@@ -1,0 +1,108 @@
+html {
+	margin: 0px; padding: 0px;
+}
+body {
+	margin: 0px; padding: 0px;
+}
+div {
+	margin: 0px; padding: 0px;
+}
+ul {
+	margin: 0px; padding: 0px;
+}
+li {
+	margin: 0px; padding: 0px;
+}
+ol {
+	margin: 0px; padding: 0px;
+}
+a {
+	margin: 0px; padding: 0px;
+}
+input {
+	margin: 0px; padding: 0px;
+}
+textarea {
+	margin: 0px; padding: 0px;
+}
+p {
+	margin: 0px; padding: 0px;
+}
+dl {
+	margin: 0px; padding: 0px;
+}
+dt {
+	margin: 0px; padding: 0px;
+}
+dd {
+	margin: 0px; padding: 0px;
+}
+ul li {
+	list-style: none;
+}
+a {
+	text-decoration: none; cursor: pointer;
+}
+html {
+	height: 100%;
+}
+body {
+	background: rgb(245, 245, 245); margin: auto; height: 100%; font-family: "Î¢ÈíÑÅºÚ"; position: relative; max-width: 640px;
+}
+a {
+	outline: 0px; -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+input {
+	outline: 0px; -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+img {
+	outline: 0px; -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+textarea {
+	outline: 0px; -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+span {
+	outline: 0px; -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+div {
+	outline: 0px; -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+header {
+	background: rgb(236, 236, 234); width: 100%; height: 45px; border-bottom-color: rgb(221, 221, 221); border-bottom-width: 1px; border-bottom-style: solid;
+}
+header.fixed {
+	left: 0px; top: 0px; position: fixed; z-index: 99;
+}
+.header {
+	margin: 0px 20px; height: 45px; text-align: center; color: rgb(78, 74, 73); line-height: 45px; font-size: 1em; position: relative;
+}
+#letter {
+	background: rgba(145, 145, 145, 0.6); margin: -50px 0px 0px -50px; border-radius: 5px; left: 50%; top: 50%; width: 100px; height: 100px; text-align: center; color: rgb(85, 85, 85); line-height: 100px; font-size: 75px; display: none; position: fixed; z-index: 99;
+}
+#letter img {
+	margin: 25px 0px 0px 25px; width: 50px; height: 50px; float: left;
+}
+.sort_box {
+	width: 100%; overflow: hidden; padding-top: 45px;
+}
+.sort_list {
+	padding: 10px 60px 10px 80px; height: 40px; line-height: 40px; border-bottom-color: rgb(221, 221, 221); border-bottom-width: 1px; border-bottom-style: solid; position: relative;
+}
+.sort_list .num_logo {
+	border-radius: 10px; left: 20px; top: 5px; width: 50px; height: 50px; overflow: hidden; position: absolute;
+}
+.sort_list .num_logo img {
+	width: 50px; height: 50px;
+}
+.sort_list .num_name {
+	color: rgb(0, 0, 0);
+}
+.sort_letter {
+	height: 30px; color: rgb(120, 120, 120); line-height: 30px; padding-left: 20px; font-size: 14px; border-bottom-color: rgb(221, 221, 221); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.initials {
+	background: rgba(145, 145, 145, 0); top: 47px; width: 15px; height: 100%; text-align: center; right: 0px; padding-right: 10px; font-size: 12px; position: fixed; z-index: 99;
+}
+.initials li img {
+	width: 14px;
+}

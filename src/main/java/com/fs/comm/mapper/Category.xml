@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.comm.mapper.CategoryMapper"> 
+<resultMap type="com.fs.comm.model.Category" id="category">
+
+<result property="cat_id" column="cat_id"  />
+<result property="cat_name" column="cat_name"  />
+<result property="keywords" column="keywords"  />
+<result property="cat_desc" column="cat_desc"  />
+<result property="parent_id" column="parent_id"  />
+<result property="sort_order" column="sort_order"  />
+<result property="cat_path" column="cat_path"  />
+<result property="pic" column="pic"  />
+    
+</resultMap> 
+	
+	<insert id="saveCategory" parameterType="com.fs.comm.model.Category">
+insert into px_category(cat_id,cat_name,keywords,cat_desc,parent_id,sort_order,cat_path,pic) values(#{cat_id,jdbcType=VARCHAR},#{cat_name,jdbcType=VARCHAR},#{keywords,jdbcType=VARCHAR},#{cat_desc,jdbcType=VARCHAR},#{parent_id,jdbcType=INTEGER},#{sort_order,jdbcType=INTEGER},#{cat_path,jdbcType=VARCHAR},#{pic,jdbcType=VARCHAR})
+    </insert>
+	<update id="updateCategory" parameterType="com.fs.comm.model.Category" >
+update px_category set cat_name=#{cat_name},keywords=#{keywords},cat_desc=#{cat_desc},parent_id=#{parent_id},sort_order=#{sort_order},cat_path=#{cat_path},pic=#{pic} where cat_id=#{cat_id}
+
+	</update>
+	<update id="updateCategorylj" parameterType="hashmap" >
+		update px_category set cat_path=#{cat_path} 
+		where cat_id=#{cat_id}
+	</update>
+	<select id="loadCategory" resultMap="category"  >
+		select * from px_category where cat_id=#{cat_id} 
+	
+	</select>
+	<delete id="delCategory" >
+		delete from px_category where cat_id=#{cat_id}
+	</delete>
+	<select id="countCategory" resultType="java.lang.Integer" >
+      select count(*) from px_category where 1=1
+      <if test="parent_id!= null and parent_id!= ''">  
+	  and  parent_id=#{parent_id} 
+	</if>
+    </select>
+	<select id="browseCategory" resultMap="category">
+		select tt.*,(select count(1) from px_category t where t.parent_id=tt.cat_id) cnum from px_category tt
+         <trim prefix="where" prefixOverrides="AND |OR ">
+		<if test="id!= null and id!= ''">
+			and id=#{id}
+		</if>
+		<if test="parent_id!= null and parent_id!= ''">
+			and parent_id=#{parent_id}
+		</if>
+		<if test="cat_name!= null and cat_name!= ''">
+			and cat_name=#{cat_name}
+		</if>
+		</trim>
+	</select>
+</mapper>

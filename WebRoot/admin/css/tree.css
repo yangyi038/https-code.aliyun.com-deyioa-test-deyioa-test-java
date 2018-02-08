@@ -1,0 +1,82 @@
+ul,li{
+	margin:0;
+	padding:0;
+}
+li{
+	list-style-type:none;
+}
+.tree-content{
+	border:1px solid #d7d7d7;
+	padding:10px;
+}
+.tree-node-menu{
+	display:none;
+}
+.tree-node-menu.open{
+	display:block;
+}
+.tree-node input[type="checkbox"]{
+	position:relative;
+	top:3px;
+}
+.clicki{
+	cursor:pointer;
+}
+.glyphicon.none{
+	width:13px;
+	height:15px;
+}
+.glyphicon.none:before{
+	content:' ';
+}
+
+
+
+/*treenew*/
+.tree-node-new{
+	    height: 40px;
+    line-height: 30px;
+    position: relative;
+    padding: 5px 0;
+    font-size: 14px;
+}
+.tree-node-new input[type="text"]{
+	position:absolute;
+	top:5px;
+	right:0px
+}
+.tree-node-menu-new{
+	position:relative;
+}
+.tree-node-new button{
+	position:absolute;
+	left:50%;
+	padding:2px 5px;
+}
+.tree-content-box,.tree-content-abox{
+	padding:0 0px 10px;
+	
+	border:1px solid #d7d7d7;
+}
+.tree-content-box{
+	margin-top:12px;
+}
+.tree-box-title{
+	padding:8px 10px;
+	font-size:16px;
+	color:#333;
+	background:#fafafa;
+	padding-bottom:10px;
+	border-bottom:1px dashed #d7d7d7;
+	margin-bottom:10px;
+}
+.tree-content-abox .inputbox{
+	padding:0 5px 0 5px;
+}
+.tree-content-abox .inputbox select,.tree-content-abox .inputbox input[type="text"]{
+	width:160px;
+	min-width:160px;
+}
+.tree-content-box .tree-ul{
+	padding:5px 10px;
+}

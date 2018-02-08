@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.ShopEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.fs.comm.model.ShopEntity" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="StartTime" property="starttime" jdbcType="VARCHAR" />
+    <result column="CategoryID" property="categoryid" jdbcType="VARCHAR" />
+    <result column="Importance" property="importance" jdbcType="VARCHAR" />
+    <result column="PlaceID" property="placeid" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Alww" property="alww" jdbcType="VARCHAR" />
+    <result column="Contact" property="contact" jdbcType="VARCHAR" />
+    <result column="Price" property="price" jdbcType="VARCHAR" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="WeChat" property="wechat" jdbcType="VARCHAR" />
+    <result column="Sku" property="sku" jdbcType="VARCHAR" />
+    <result column="Volume" property="volume" jdbcType="VARCHAR" />
+    <result column="MonthSale" property="monthsale" jdbcType="VARCHAR" />
+    <result column="Customers" property="customers" jdbcType="VARCHAR" />
+    <result column="NewSpeed" property="newspeed" jdbcType="VARCHAR" />
+    <result column="Promotions" property="promotions" jdbcType="VARCHAR" />
+    <result column="Prices" property="prices" jdbcType="VARCHAR" />
+    <result column="Des" property="des" jdbcType="VARCHAR" />
+    <result column="Follows" property="follows" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="VARCHAR" />
+    <result column="CreateUserID" property="createuserid" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="VARCHAR" />
+    <result column="GroupID" property="groupid" jdbcType="VARCHAR" />
+    <result column="StaticsTime" property="staticstime" jdbcType="VARCHAR" />
+    <result column="deflg" property="deflg" jdbcType="TINYINT" />
+  </resultMap>
+  <insert id="insert" parameterType="com.fs.comm.model.ShopEntity" >
+    insert into yz_shop (ID, StartTime, CategoryID, 
+      Importance, PlaceID, Name, 
+      Alww, Contact, Price, 
+      Phone, QQ, WeChat, 
+      Sku, Volume, MonthSale, 
+      Customers, NewSpeed, Promotions, 
+      Prices, Des, Follows, 
+      Remark, State, CreateUserID, 
+      CreateTime, GroupID, StaticsTime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{categoryid,jdbcType=VARCHAR}, 
+      #{importance,jdbcType=VARCHAR}, #{placeid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{alww,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
+      #{sku,jdbcType=VARCHAR}, #{volume,jdbcType=VARCHAR}, #{monthsale,jdbcType=VARCHAR}, 
+      #{customers,jdbcType=VARCHAR}, #{newspeed,jdbcType=VARCHAR}, #{promotions,jdbcType=VARCHAR}, 
+      #{prices,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, #{follows,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{createuserid,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{groupid,jdbcType=VARCHAR}, #{staticstime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fs.comm.model.ShopEntity" >
+    insert into yz_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="starttime != null" >
+        StartTime,
+      </if>
+      <if test="categoryid != null" >
+        CategoryID,
+      </if>
+      <if test="importance != null" >
+        Importance,
+      </if>
+      <if test="placeid != null" >
+        PlaceID,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="alww != null" >
+        Alww,
+      </if>
+      <if test="contact != null" >
+        Contact,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="phone != null" >
+        Phone,
+      </if>
+      <if test="qq != null" >
+        QQ,
+      </if>
+      <if test="wechat != null" >
+        WeChat,
+      </if>
+      <if test="sku != null" >
+        Sku,
+      </if>
+      <if test="volume != null" >
+        Volume,
+      </if>
+      <if test="monthsale != null" >
+        MonthSale,
+      </if>
+      <if test="customers != null" >
+        Customers,
+      </if>
+      <if test="newspeed != null" >
+        NewSpeed,
+      </if>
+      <if test="promotions != null" >
+        Promotions,
+      </if>
+      <if test="prices != null" >
+        Prices,
+      </if>
+      <if test="des != null" >
+        Des,
+      </if>
+      <if test="follows != null" >
+        Follows,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="createuserid != null" >
+        CreateUserID,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="groupid != null" >
+        GroupID,
+      </if>
+      <if test="staticstime != null" >
+        StaticsTime,
+      </if>
+      <if test="deflg != null" >
+        deflg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="importance != null" >
+        #{importance,jdbcType=VARCHAR},
+      </if>
+      <if test="placeid != null" >
+        #{placeid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="alww != null" >
+        #{alww,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=VARCHAR},
+      </if>
+      <if test="monthsale != null" >
+        #{monthsale,jdbcType=VARCHAR},
+      </if>
+      <if test="customers != null" >
+        #{customers,jdbcType=VARCHAR},
+      </if>
+      <if test="newspeed != null" >
+        #{newspeed,jdbcType=VARCHAR},
+      </if>
+      <if test="promotions != null" >
+        #{promotions,jdbcType=VARCHAR},
+      </if>
+      <if test="prices != null" >
+        #{prices,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null" >
+        #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="follows != null" >
+        #{follows,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="staticstime != null" >
+        #{staticstime,jdbcType=VARCHAR},
+      </if>
+      <if test="deflg != null" >
+        #{deflg},
+      </if>
+    </trim>
+  	</insert>
+  
+  	<!-- 获取商店组列表 -->
+	<select id="getShopList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select * from yz_shop
+		order by CreateTime desc
+	</select>
+	
+	<!-- 通过主键获取商铺信息 -->
+	<select id="selectByid" resultType="com.fs.comm.model.ShopEntity"
+		parameterType="java.util.Map">
+		select *
+			from yz_shop
+		where 1=1
+		<if test="id!=null and id!=''">
+			and id =#{id}
+		</if>
+	</select>
+	
+	<!-- 获取商店一览 -->
+	<select id="selectShopList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+			shop.id,
+			shop.Alww as alww,
+			shop.CategoryID as categoryid,
+			shop.`Name` as name,
+			shop.Sku as sku,
+			shop.Volume as volume,
+			shop.MonthSale as monthsale,
+			shop.Customers as customers,
+			shop.NewSpeed as newspeed,
+			shop.Promotions as promotions,
+			shop.Follows as follows,
+			dep.depname as groupid,
+			par.pname as importance
+		FROM yz_shop shop
+			LEFT JOIN parameter par
+			ON shop.Importance = par.pcode
+			AND par.ptype = 'important'
+			LEFT JOIN department dep
+			ON shop.GroupID = dep.id
+			where shop.deflg = 1
+		<if test="groupid!=null and groupid!=''">
+			and shop.groupid =#{groupid}
+		</if>
+
+		<if test="importance!=null and importance!=''">
+			and shop.importance =#{importance}
+		</if>
+		
+		<if test="shopname!=null and shopname!=''">
+			and ( shop.Alww like '%${shopname}%'
+			or shop.`Name` like '%${shopname}%'
+			or shop.CategoryID like '%${shopname}%'
+			or shop.Follows like '%${shopname}%')
+		</if>
+			order by shop.createtime desc
+	</select>
+	
+	<!-- 获取商店一览 -->
+	<select id="selectRecoveryShopList" resultType="com.fs.comm.model.ShopEntity"
+		parameterType="java.util.Map">
+		SELECT
+			shop.id,
+			shop.Alww as alww,
+			shop.CategoryID as categoryid,
+			shop.`Name` as name,
+			shop.Sku as sku,
+			shop.Volume as volume,
+			shop.MonthSale as monthsale,
+			shop.Customers as customers,
+			shop.NewSpeed as newspeed,
+			shop.Promotions as promotions,
+			shop.Follows as follows,
+			dep.depname as groupid,
+			par.pname as importance
+		FROM yz_shop shop
+			LEFT JOIN parameter par
+			ON shop.Importance = par.pcode
+			AND par.ptype = 'important'
+			LEFT JOIN department dep
+			ON shop.GroupID = dep.id
+			where shop.deflg = 0
+			order by shop.updatetime desc
+	</select>
+	
+	<!-- 更新商铺操作 -->
+	<update id="updateShop" parameterType="com.fs.comm.model.ShopEntity">
+		update yz_shop
+		<set>
+			<if test="starttime != null">
+				starttime = #{starttime},
+			</if>
+			<if test="categoryid != null">
+				CategoryID = #{categoryid},
+			</if>
+			<if test="importance != null">
+				importance = #{importance},
+			</if>
+			<if test="placeid != null">
+				placeid = #{placeid},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="alww != null">
+				alww = #{alww},
+			</if>
+			<if test="contact != null">
+				contact = #{contact},
+			</if>
+			<if test="price != null">
+				price = #{price},
+			</if>
+			
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="qq != null">
+				qq = #{qq},
+			</if>
+			<if test="wechat != null">
+				wechat = #{wechat},
+			</if>
+			<if test="sku != null">
+				sku = #{sku},
+			</if>
+			<if test="volume != null">
+				volume = #{volume},
+			</if>
+			
+			<if test="monthsale != null">
+				monthsale = #{monthsale},
+			</if>
+			<if test="customers != null">
+				customers = #{customers},
+			</if>
+			<if test="newspeed != null">
+				newspeed = #{newspeed},
+			</if>
+			
+			<if test="promotions != null">
+				promotions = #{promotions},
+			</if>
+			<if test="prices != null">
+				prices = #{prices},
+			</if>
+			<if test="follows != null">
+				follows = #{follows},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			
+			<if test="state != null">
+				state = #{state},
+			</if>
+			<if test="groupid != null">
+				groupid = #{groupid},
+			</if>
+			<if test="staticstime != null">
+				staticstime = #{staticstime},
+			</if>
+			<if test="createuserid != null">
+				createuserid = #{createuserid},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据id删除商铺 -->
+	<update id="deleteByid" parameterType="com.fs.comm.model.ShopEntity">
+		update yz_shop
+		<set>
+			deflg = 0,
+			updatetime = #{updatetime}
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据id恢复商铺 -->
+	<update id="recoveryByid" parameterType="com.fs.comm.model.ShopEntity">
+		update yz_shop
+		<set>
+			deflg = 1,
+			updatetime = #{updatetime}
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据商铺名称查找商铺 -->
+	<select id="selectByname" parameterType="com.fs.comm.model.ShopEntity" resultType="com.fs.comm.model.ShopEntity">
+		SELECT * FROM
+			yz_shop
+			WHERE `Name` = #{name}
+	</select>
+</mapper>

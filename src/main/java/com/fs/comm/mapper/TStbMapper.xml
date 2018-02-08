@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.TStbMapper">
+	<resultMap id="BaseResultMap" type="com.fs.comm.model.TStb">
+		<id column="sid" property="sid" jdbcType="BIGINT" />
+		
+		<result column="companyid" property="companyid" jdbcType="BIGINT" />
+		<result column="operatorid" property="operatorid" jdbcType="BIGINT" />
+		<result column="dealerid" property="dealerid" jdbcType="BIGINT" />
+		
+		<result column="stbnum" property="stbnum" jdbcType="VARCHAR" />
+		<result column="stbgroup" property="stbgroup" jdbcType="VARCHAR" />
+		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
+		<result column="pwdsure" property="pwdsure" jdbcType="VARCHAR" />
+		<result column="epgroot" property="epgroot" jdbcType="VARCHAR" />
+		<result column="epgprivate" property="epgprivate" jdbcType="VARCHAR" />
+		<result column="telroot" property="telroot" jdbcType="VARCHAR" />
+		<result column="deposit" property="deposit" jdbcType="DECIMAL" />
+		<result column="hotelsid" property="hotelsid" jdbcType="BIGINT" />
+		<result column="hotelname" property="hotelname" jdbcType="VARCHAR" />
+		<result column="paytype" property="paytype" jdbcType="INTEGER" />
+		<result column="stbstatus" property="stbstatus" jdbcType="INTEGER" />
+		<result column="installaddress" property="installaddress"
+			jdbcType="VARCHAR" />
+		<result column="validdate" property="validdate" jdbcType="TIMESTAMP" />
+		<result column="accounttype" property="accounttype" jdbcType="INTEGER" />
+		<result column="balance" property="balance" jdbcType="DECIMAL" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="stbid" property="stbid" jdbcType="VARCHAR" />
+		<result column="mac" property="mac" jdbcType="VARCHAR" />
+		<result column="apkversion" property="apkversion" jdbcType="VARCHAR" />
+		<result column="romversion" property="romversion" jdbcType="VARCHAR" />
+		<result column="romfirmware" property="romfirmware" jdbcType="VARCHAR" />
+		<result column="apptype" property="apptype" jdbcType="VARCHAR" />
+		<result column="tokencode" property="tokencode" jdbcType="VARCHAR" />
+		<result column="stbtype" property="stbtype" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		sid, companyid,operatorid,dealerid,stbnum, stbgroup, pwd, pwdsure, epgroot, epgprivate,
+		telroot,
+		deposit, hotelsid,
+		hotelname, paytype, stbstatus,
+		installaddress, validdate, accounttype, balance,
+		createtime,
+		stbid, mac,
+		apkversion, romversion, romfirmware, apptype , tokencode,
+		stbtype
+	</sql>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+
+
+<!-- 获取机顶盒列表 -->
+	<select id="getStbList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from t_stb s left join t_bind b on s.sid=b.stbsid
+		where 1=1
+		<if test="hotelsid!=null and hotelsid!=''">
+			and b.hotelsid =#{hotelsid}
+		</if>
+		<if test="stbgroup!=null and stbgroup!=''">
+			and s.stbgroup =#{stbgroup}
+		</if>
+		<if test="stbstatus!=null and stbstatus!=''">
+			and s.stbstatus =#{stbstatus}
+		</if>
+		<if test="accounttype!=null and accounttype!=''">
+			and s.accounttype =#{accounttype}
+		</if>
+		<if test="companyid !=null ">
+			and s.companyid =#{companyid}
+		</if>
+		<if test="operatorid !=null ">
+			and s.operatorid =#{operatorid}
+		</if>
+		<if test="dealerid !=null ">
+			and s.dealerid =#{dealerid}
+		</if>
+		<if test="content!=null and content!=''">
+			and s.stbnum like '%${content}%'
+		</if>
+		order by s.sid desc
+	</select>
+	
+
+	<!--精确查找 -->
+	<select id="getStb" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_stb where 1=1
+		<if test="sid != null">
+			and sid = #{sid}
+		</if>
+		<if test="stbnum != null">
+			and stbnum = #{stbnum}
+		</if>
+		<if test="mac!=null and mac!=''">
+			and mac =#{mac}
+		</if>
+	</select>
+
+	<!-- 查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		 *
+		from t_stb
+		where sid = #{sid,jdbcType=BIGINT}
+	</select>
+
+	<!-- 删除机顶盒 -->
+	<delete id="deleteStb" parameterType="java.lang.Long">
+		delete from t_stb
+		where sid
+		= #{sid,jdbcType=BIGINT}
+	</delete>
+
+	<!-- 查询机顶盒是否存在 -->
+	<select id="countStb" resultType="java.lang.Integer">
+		select count(1) from t_stb b where 1=1
+		<if test="sid!= null and sid!= ''">
+			and b.sid=#{sid}
+		</if>
+	</select>
+
+	<!-- 添加机顶盒 -->
+	<insert id="insertStb" parameterType="com.fs.comm.model.TStb">
+		insert into t_stb (sid,
+		stbnum, stbgroup,
+		pwd, pwdsure, epgroot,
+		epgprivate, telroot, deposit,
+		hotelsid, hotelname, paytype,
+		stbstatus, installaddress, validdate,
+		accounttype, balance, createtime,
+		stbid, mac, apkversion,
+		romversion,
+		romfirmware, apptype, tokencode,
+		companyid,stbtype
+		,operatorid
+		,dealerid
+		)
+		values (#{sid,jdbcType=BIGINT},
+		#{stbnum,jdbcType=INTEGER},
+		#{stbgroup,jdbcType=VARCHAR},
+		#{pwd,jdbcType=VARCHAR}, #{pwdsure,jdbcType=VARCHAR},
+		#{epgroot,jdbcType=VARCHAR},
+		#{epgprivate,jdbcType=VARCHAR},
+		#{telroot,jdbcType=VARCHAR},
+		#{deposit,jdbcType=DECIMAL},
+		#{hotelsid,jdbcType=BIGINT}, #{hotelname,jdbcType=VARCHAR},
+		#{paytype,jdbcType=INTEGER},
+		#{stbstatus,jdbcType=INTEGER},
+		#{installaddress,jdbcType=VARCHAR},
+		#{validdate,jdbcType=TIMESTAMP},
+		#{accounttype,jdbcType=INTEGER}, #{balance,jdbcType=DECIMAL},
+		#{createtime,jdbcType=TIMESTAMP},
+		#{stbid,jdbcType=VARCHAR},
+		#{mac,jdbcType=VARCHAR},
+		#{apkversion,jdbcType=VARCHAR},
+		#{romversion,jdbcType=VARCHAR}, #{romfirmware,jdbcType=VARCHAR},
+		#{apptype,jdbcType=VARCHAR},
+		#{tokencode,jdbcType=VARCHAR},
+		#{companyid,jdbcType=BIGINT},#{stbtype,jdbcType=INTEGER}
+		,#{operatorid,jdbcType=BIGINT}
+		,#{dealerid,jdbcType=BIGINT}
+		)
+	</insert>
+
+<!-- 添加 -->
+	<insert id="insertSelective" parameterType="com.fs.comm.model.TStb">
+		insert into t_stb
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="stbnum != null">
+				stbnum,
+			</if>
+			<if test="stbgroup != null">
+				stbgroup,
+			</if>
+			<if test="pwd != null">
+				pwd,
+			</if>
+			<if test="pwdsure != null">
+				pwdsure,
+			</if>
+			<if test="epgroot != null">
+				epgroot,
+			</if>
+			<if test="epgprivate != null">
+				epgprivate,
+			</if>
+			<if test="telroot != null">
+				telroot,
+			</if>
+			<if test="deposit != null">
+				deposit,
+			</if>
+			<if test="hotelsid != null">
+				hotelsid,
+			</if>
+			<if test="hotelname != null">
+				hotelname,
+			</if>
+			<if test="paytype != null">
+				paytype,
+			</if>
+			<if test="stbstatus != null">
+				stbstatus,
+			</if>
+			<if test="installaddress != null">
+				installaddress,
+			</if>
+			<if test="validdate != null">
+				validdate,
+			</if>
+			<if test="accounttype != null">
+				accounttype,
+			</if>
+			<if test="balance != null">
+				balance,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="stbid != null">
+				stbid,
+			</if>
+			<if test="mac != null">
+				mac,
+			</if>
+			<if test="apkversion != null">
+				apkversion,
+			</if>
+			<if test="romversion != null">
+				romversion,
+			</if>
+			<if test="romfirmware != null">
+				romfirmware,
+			</if>
+			<if test="apptype != null">
+				apptype,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=BIGINT},
+			</if>
+			<if test="stbnum != null">
+				#{stbnum,jdbcType=INTEGER},
+			</if>
+			<if test="stbgroup != null">
+				#{stbgroup,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				#{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdsure != null">
+				#{pwdsure,jdbcType=VARCHAR},
+			</if>
+			<if test="epgroot != null">
+				#{epgroot,jdbcType=VARCHAR},
+			</if>
+			<if test="epgprivate != null">
+				#{epgprivate,jdbcType=VARCHAR},
+			</if>
+			<if test="telroot != null">
+				#{telroot,jdbcType=VARCHAR},
+			</if>
+			<if test="deposit != null">
+				#{deposit,jdbcType=DECIMAL},
+			</if>
+			<if test="hotelsid != null">
+				#{hotelsid,jdbcType=BIGINT},
+			</if>
+			<if test="hotelname != null">
+				#{hotelname,jdbcType=VARCHAR},
+			</if>
+			<if test="paytype != null">
+				#{paytype,jdbcType=INTEGER},
+			</if>
+			<if test="stbstatus != null">
+				#{stbstatus,jdbcType=INTEGER},
+			</if>
+			<if test="installaddress != null">
+				#{installaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="validdate != null">
+				#{validdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="accounttype != null">
+				#{accounttype,jdbcType=INTEGER},
+			</if>
+			<if test="balance != null">
+				#{balance,jdbcType=DECIMAL},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="stbid != null">
+				#{stbid,jdbcType=VARCHAR},
+			</if>
+			<if test="mac != null">
+				#{mac,jdbcType=VARCHAR},
+			</if>
+			<if test="apkversion != null">
+				#{apkversion,jdbcType=VARCHAR},
+			</if>
+			<if test="romversion != null">
+				#{romversion,jdbcType=VARCHAR},
+			</if>
+			<if test="romfirmware != null">
+				#{romfirmware,jdbcType=VARCHAR},
+			</if>
+			<if test="apptype != null">
+				#{apptype,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+<!-- 修改 -->
+	<update id="updateStbInfo" parameterType="com.fs.comm.model.TStb">
+		update t_stb
+		<set>
+			<if test="stbnum != null">
+				stbnum = #{stbnum,jdbcType=INTEGER},
+			</if>
+			<if test="stbgroup != null">
+				stbgroup = #{stbgroup,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				pwd = #{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdsure != null">
+				pwdsure = #{pwdsure,jdbcType=VARCHAR},
+			</if>
+			<if test="epgroot != null">
+				epgroot = #{epgroot,jdbcType=VARCHAR},
+			</if>
+			<if test="epgprivate != null">
+				epgprivate = #{epgprivate,jdbcType=VARCHAR},
+			</if>
+			<if test="telroot != null">
+				telroot = #{telroot,jdbcType=VARCHAR},
+			</if>
+			<if test="deposit != null">
+				deposit = #{deposit,jdbcType=DECIMAL},
+			</if>
+			<if test="hotelsid != null">
+				hotelsid = #{hotelsid,jdbcType=BIGINT},
+			</if>
+			<if test="hotelname != null">
+				hotelname = #{hotelname,jdbcType=VARCHAR},
+			</if>
+			<if test="paytype != null">
+				paytype = #{paytype,jdbcType=INTEGER},
+			</if>
+			<if test="stbstatus != null">
+				stbstatus = #{stbstatus,jdbcType=INTEGER},
+			</if>
+			<if test="installaddress != null">
+				installaddress = #{installaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="validdate != null">
+				validdate = #{validdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="accounttype != null">
+				accounttype = #{accounttype,jdbcType=INTEGER},
+			</if>
+			<if test="balance != null">
+				balance = #{balance,jdbcType=DECIMAL},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="stbid != null">
+				stbid = #{stbid,jdbcType=VARCHAR},
+			</if>
+			<if test="mac != null">
+				mac = #{mac,jdbcType=VARCHAR},
+			</if>
+			<if test="apkversion != null">
+				apkversion = #{apkversion,jdbcType=VARCHAR},
+			</if>
+			<if test="romversion != null">
+				romversion = #{romversion,jdbcType=VARCHAR},
+			</if>
+			<if test="romfirmware != null">
+				romfirmware = #{romfirmware,jdbcType=VARCHAR},
+			</if>
+			<if test="apptype != null">
+				apptype = #{apptype,jdbcType=VARCHAR},
+			</if>
+			<if test="stbtype != null">
+				stbtype = #{stbtype,jdbcType=INTEGER},
+			</if>
+	
+		</set>
+		where sid = #{sid,jdbcType=BIGINT}
+	</update>
+
+
+	<!-- 修改 -->
+	<update id="updateByPrimaryKey" parameterType="com.fs.comm.model.TStb">
+		update t_stb
+		set
+		stbnum = #{stbnum,jdbcType=INTEGER},
+		stbgroup =
+		#{stbgroup,jdbcType=VARCHAR},
+		pwd = #{pwd,jdbcType=VARCHAR},
+		pwdsure =
+		#{pwdsure,jdbcType=VARCHAR},
+		epgroot = #{epgroot,jdbcType=VARCHAR},
+		epgprivate = #{epgprivate,jdbcType=VARCHAR},
+		telroot =
+		#{telroot,jdbcType=VARCHAR},
+		deposit = #{deposit,jdbcType=DECIMAL},
+		hotelsid = #{hotelsid,jdbcType=BIGINT},
+		hotelname =
+		#{hotelname,jdbcType=VARCHAR},
+		paytype = #{paytype,jdbcType=INTEGER},
+		stbstatus = #{stbstatus,jdbcType=INTEGER},
+		installaddress =
+		#{installaddress,jdbcType=VARCHAR},
+		validdate =
+		#{validdate,jdbcType=TIMESTAMP},
+		accounttype =
+		#{accounttype,jdbcType=INTEGER},
+		balance = #{balance,jdbcType=DECIMAL},
+		createtime = #{createtime,jdbcType=TIMESTAMP},
+		stbid =
+		#{stbid,jdbcType=VARCHAR},
+		mac = #{mac,jdbcType=VARCHAR},
+		apkversion =
+		#{apkversion,jdbcType=VARCHAR},
+		romversion =
+		#{romversion,jdbcType=VARCHAR},
+		romfirmware =
+		#{romfirmware,jdbcType=VARCHAR},
+		apptype = #{apptype,jdbcType=VARCHAR}
+		where sid = #{sid,jdbcType=BIGINT}
+	</update>
+
+	<!-- 根据查询条件获取唯一机顶盒信息 -->
+	<select id="getDistinctStbByParams" resultMap="BaseResultMap"
+		parameterType="com.fs.app.vomodel.I_Hotel_SearchVo">
+		select * from t_stb
+		where 1=1
+		<if test="mac!=null and mac!=''">
+			and mac =#{mac,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<select id="getTStbByMac" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from t_stb 
+		where mac =#{mac,jdbcType=VARCHAR}
+	</select>
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.fs.comm.model.TStb">
+		update t_stb
+		<set>
+			<if test="stbnum != null and stbnum != ''">
+				stbnum = #{stbnum,jdbcType=INTEGER},
+			</if>
+			<if test="stbgroup != null and stbgroup != ''">
+				stbgroup = #{stbgroup,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null and pwd != ''">
+				pwd = #{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdsure != null and pwdsure != ''">
+				pwdsure = #{pwdsure,jdbcType=VARCHAR},
+			</if>
+			<if test="epgroot != null and epgroot != ''">
+				epgroot = #{epgroot,jdbcType=VARCHAR},
+			</if>
+			<if test="epgprivate != null and epgprivate != ''">
+				epgprivate = #{epgprivate,jdbcType=VARCHAR},
+			</if>
+			<if test="telroot != null and telroot != ''">
+				telroot = #{telroot,jdbcType=VARCHAR},
+			</if>
+			<if test="deposit != null and deposit != ''">
+				deposit = #{deposit,jdbcType=DECIMAL},
+			</if>
+			<if test="hotelsid != null and hotelsid != ''">
+				hotelsid = #{hotelsid,jdbcType=BIGINT},
+			</if>
+			<if test="hotelname != null and hotelname != ''">
+				hotelname = #{hotelname,jdbcType=VARCHAR},
+			</if>
+			<if test="paytype != null and paytype != ''">
+				paytype = #{paytype,jdbcType=INTEGER},
+			</if>
+			<if test="stbstatus != null and stbstatus != ''">
+				stbstatus = #{stbstatus,jdbcType=INTEGER},
+			</if>
+			<if test="installaddress != null and installaddress != ''">
+				installaddress = #{installaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="validdate != null and validdate != ''">
+				validdate = #{validdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="accounttype != null and accounttype != ''">
+				accounttype = #{accounttype,jdbcType=INTEGER},
+			</if>
+			<if test="balance != null and balance != ''">
+				balance = #{balance,jdbcType=DECIMAL},
+			</if>
+			<if test="createtime != null and createtime != ''">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="stbid != null and stbid != ''">
+				stbid = #{stbid,jdbcType=VARCHAR},
+			</if>
+			<if test="mac != null and mac != ''">
+				mac = #{mac,jdbcType=VARCHAR},
+			</if>
+			<if test="apkversion != null and apkversion != ''">
+				apkversion = #{apkversion,jdbcType=VARCHAR},
+			</if>
+			<if test="romversion != null and romversion !=''">
+				romversion = #{romversion,jdbcType=VARCHAR},
+			</if>
+			<if test="romfirmware != null and romfirmware != ''">
+				romfirmware = #{romfirmware,jdbcType=VARCHAR},
+			</if>
+			<if test="apptype != null and apptype != ''">
+				apptype = #{apptype,jdbcType=VARCHAR},
+			</if>
+			<if test="tokencode != null and tokencode != ''">
+				tokencode = #{tokencode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=BIGINT}
+	</update>
+
+	<select id="queryTsbById" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from t_stb where stbnum = #{stbnum,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

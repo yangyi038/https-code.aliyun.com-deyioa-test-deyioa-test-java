@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.T_pictureMapper">
+	<resultMap id="BaseResultMap" type="com.fs.comm.model.T_picture">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="picture_name" property="pictureName" jdbcType="VARCHAR" />
+		<result column="old_picture_name" property="oldPictureName"
+			jdbcType="VARCHAR" />
+		<result column="picture_group" property="pictureGroup"
+			jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+		<result column="link_type" property="linkType" jdbcType="VARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="companyid" property="companyid" jdbcType="BIGINT" />
+
+		<result column="operatorid" property="operatorid" jdbcType="BIGINT" />
+		<result column="dealerid" property="dealerid" jdbcType="BIGINT" />
+		<result column="pic_url" property="pic_url" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!-- 添加图片 -->
+	<insert id="insertPicture" parameterType="com.fs.comm.model.T_picture"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_picture (id,
+		picture_name, old_picture_name,
+		picture_group, status, upload_time,
+		link_type, link_url, is_delete,companyid,operatorid,dealerid,pic_url
+		)
+		values (#{id,jdbcType=BIGINT}, #{pictureName,jdbcType=VARCHAR},
+		#{oldPictureName,jdbcType=VARCHAR},
+		#{pictureGroup,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP},
+		#{linkType,jdbcType=VARCHAR}, #{linkUrl,jdbcType=VARCHAR},
+		#{isDelete,jdbcType=VARCHAR}, #{companyid,jdbcType=BIGINT},
+		#{operatorid,jdbcType=BIGINT}, #{dealerid,jdbcType=BIGINT},
+		#{pic_url,jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+	<select id="getAllPictureInfo" resultType="hashmap">
+		select * from t_picture where is_delete='n'
+		<if test="companyid!= null and companyid!= ''">
+			and companyid=#{companyid}
+		</if>
+		<if test="status!= null and status!= ''">
+			and status=#{status}
+		</if>
+		<if test="pictureName!= null and pictureName!= ''">
+			and picture_name like CONCAT('%',#{pictureName},'%')
+		</if>
+		<if test="pictureName!= null and pictureName!= ''">
+			or old_picture_name like CONCAT('%',#{pictureName},'%')
+		</if>
+		order by upload_time desc
+	</select>
+
+	<update id="deletePictureById">
+		update t_picture set is_delete='y' where id=#{id}
+	</update>
+
+	<update id="agreePicture">
+		update t_picture set status='已审核' where id=#{id}
+	</update>
+
+	<update id="unAgreePicture">
+		update t_picture set status='未审核' where id=#{id}
+	</update>
+
+	<select id="queryPictureById" resultMap="BaseResultMap">
+		select * from t_picture
+		where is_delete='n' and id=#{id}
+	</select>
+
+	<!-- 查询图片组 -->
+	<select id="selectPictuireGroup" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select picture_group
+		from t_picture
+		where is_delete='n' 
+		<if test="companyid !=null ">
+			and companyid=#{companyid}
+		</if>
+		<if test="operatorid !=null ">
+			and operatorid=#{operatorid}
+		</if>
+		<if test="dealerid !=null ">
+			and dealerid=#{dealerid}
+		</if>
+	</select>
+</mapper>
+  
+ 

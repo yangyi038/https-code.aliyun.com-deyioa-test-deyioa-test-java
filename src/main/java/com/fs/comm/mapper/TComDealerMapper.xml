@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.TComDealerMapper">
+	<resultMap id="BaseResultMap" type="com.fs.comm.model.TComDealer">
+		<id column="sid" property="sid" jdbcType="BIGINT" />
+		<result column="companyid" property="companyid" jdbcType="BIGINT" />
+		<result column="operatorid" property="operatorid" jdbcType="BIGINT" />
+
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
+
+		<result column="nick" property="nick" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+
+		<result column="privilege" property="privilege" jdbcType="INTEGER" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		sid, companyid,operatorid, name, pwd, privilege,
+		createtime,nick,phone
+	</sql>
+
+	<!-- 获取经销商列表 -->
+	<select id="getDealerList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_com_dealer
+		where 1=1
+		<if test="sid != null and sid != ''">
+			and sid = #{sid,jdbcType=BIGINT}
+		</if>
+		<if test="companyid != null and companyid != ''">
+			and companyid = #{companyid,jdbcType=BIGINT}
+		</if>
+		<if test="operatorid != null and operatorid != ''">
+			and operatorid = #{operatorid,jdbcType=BIGINT}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name,jdbcType=VARCHAR}
+		</if>
+		<if test="content != null and content != ''">
+			and name like CONCAT('%',#{content},'%')
+		</if>
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_com_dealer
+		where sid = #{sid,jdbcType=BIGINT}
+	</select>
+
+	<!--删除经销商 -->
+	<delete id="deleteDealer" parameterType="java.lang.Long">
+		delete from t_com_dealer
+		where sid = #{sid,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="com.fs.comm.model.TComDealer">
+		insert into t_com_dealer (sid,
+		parentid, name,
+		pwd, privilege, createtime
+		)
+		values
+		(#{sid,jdbcType=BIGINT}, #{parentid,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{pwd,jdbcType=VARCHAR},
+		#{privilege,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<!--添加经销商 -->
+	<insert id="insertDealer" parameterType="com.fs.comm.model.TComDealer"
+		useGeneratedKeys="true" keyProperty="sid">
+		insert into t_com_dealer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="companyid != null">
+				companyid,
+			</if>
+			<if test="operatorid != null">
+				operatorid,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="pwd != null">
+				pwd,
+			</if>
+			<if test="privilege != null">
+				privilege,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="nick != null">
+				nick,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=BIGINT},
+			</if>
+			<if test="companyid != null">
+				#{companyid,jdbcType=BIGINT},
+			</if>
+			<if test="operatorid != null">
+				#{operatorid,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				#{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="privilege != null">
+				#{privilege,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="nick != null">
+				#{nick,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 修改 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.fs.comm.model.TComDealer">
+		update t_com_dealer
+		<set>
+			<if test="companyid != null">
+				companyid = #{companyid,jdbcType=BIGINT},
+			</if>
+			<if test="operatorid != null">
+				operatorid = #{operatorid,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				pwd = #{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="privilege != null">
+				privilege = #{privilege,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="nick != null">
+				nick = #{nick,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.fs.comm.model.TComDealer">
+		update
+		t_com_dealer
+		set parentid = #{parentid,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR},
+		pwd = #{pwd,jdbcType=VARCHAR},
+		privilege =
+		#{privilege,jdbcType=INTEGER},
+		createtime =
+		#{createtime,jdbcType=TIMESTAMP}
+		where sid = #{sid,jdbcType=BIGINT}
+	</update>
+</mapper>

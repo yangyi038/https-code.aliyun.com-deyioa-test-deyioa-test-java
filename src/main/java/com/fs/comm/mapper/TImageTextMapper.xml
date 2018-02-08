@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.TImageTextMapper">
+	<resultMap id="BaseResultMap" type="com.fs.comm.model.ImageText">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="line_status" property="lineStatus" jdbcType="VARCHAR" />
+		<result column="show_type" property="showType" jdbcType="INTEGER" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="templet" property="templet" jdbcType="VARCHAR" />
+		<result column="image_attribute" property="imageAttribute"
+			jdbcType="VARCHAR" />
+		<result column="last_image_text" property="lastImageText"
+			jdbcType="VARCHAR" />
+		<result column="lable_attribute" property="lableAttribute"
+			jdbcType="VARCHAR" />
+		<result column="companyid" property="companyid" jdbcType="BIGINT" />
+		
+		<result column="operatorid" property="operatorid" jdbcType="BIGINT" />
+		<result column="dealerid" property="dealerid" jdbcType="BIGINT" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, name, status, line_status, show_type, content, create_time,
+		is_delete, templet,
+		image_attribute, last_image_text, lable_attribute
+		,companyid
+		,operatorid
+		,dealerid
+	</sql>
+
+	<!-- 根据主键获取图文信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_image_text
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_image_text
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<!--添加图文信息 -->
+	<insert id="insertImageText" parameterType="com.fs.comm.model.ImageText"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_image_text (id, name, status,
+		line_status, show_type, content,
+		create_time, is_delete, templet,
+		image_attribute, last_image_text, lable_attribute,companyid,operatorid,dealerid
+		)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{lineStatus,jdbcType=VARCHAR}, #{showType,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=VARCHAR},
+		#{templet,jdbcType=VARCHAR},
+		#{imageAttribute,jdbcType=VARCHAR}, #{lastImageText,jdbcType=VARCHAR},
+		#{lableAttribute,jdbcType=VARCHAR}
+		,#{companyid,jdbcType=BIGINT}
+		,#{operatorid,jdbcType=BIGINT}
+		,#{dealerid,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.fs.comm.model.ImageText">
+		insert into t_image_text
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="lineStatus != null">
+				line_status,
+			</if>
+			<if test="showType != null">
+				show_type,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+			<if test="templet != null">
+				templet,
+			</if>
+			<if test="imageAttribute != null">
+				image_attribute,
+			</if>
+			<if test="lastImageText != null">
+				last_image_text,
+			</if>
+			<if test="lableAttribute != null">
+				lable_attribute,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="lineStatus != null">
+				#{lineStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="showType != null">
+				#{showType,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=VARCHAR},
+			</if>
+			<if test="templet != null">
+				#{templet,jdbcType=VARCHAR},
+			</if>
+			<if test="imageAttribute != null">
+				#{imageAttribute,jdbcType=VARCHAR},
+			</if>
+			<if test="lastImageText != null">
+				#{lastImageText,jdbcType=VARCHAR},
+			</if>
+			<if test="lableAttribute != null">
+				#{lableAttribute,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.fs.comm.model.ImageText">
+		update t_image_text
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="lineStatus != null">
+				line_status = #{lineStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="showType != null">
+				show_type = #{showType,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=VARCHAR},
+			</if>
+			<if test="templet != null">
+				templet = #{templet,jdbcType=VARCHAR},
+			</if>
+			<if test="imageAttribute != null">
+				image_attribute = #{imageAttribute,jdbcType=VARCHAR},
+			</if>
+			<if test="lastImageText != null">
+				last_image_text = #{lastImageText,jdbcType=VARCHAR},
+			</if>
+			<if test="lableAttribute != null">
+				lable_attribute = #{lableAttribute,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.fs.comm.model.ImageText">
+		update t_image_text
+		set name = #{name,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		line_status = #{lineStatus,jdbcType=VARCHAR},
+		show_type = #{showType,jdbcType=VARCHAR},
+		content = #{content,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		is_delete = #{isDelete,jdbcType=VARCHAR},
+		templet = #{templet,jdbcType=VARCHAR},
+		image_attribute = #{imageAttribute,jdbcType=VARCHAR},
+		last_image_text = #{lastImageText,jdbcType=VARCHAR},
+		lable_attribute = #{lableAttribute,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+
+
+	<select id="getAllImageTextInfo" resultType="hashmap">
+		select * from t_image_text where is_delete='n'
+		<if test="companyid!= null and companyid!= ''">
+			and companyid=#{companyid}
+		</if>
+		<if test="id!= null and id!= ''">
+			and id=#{id}
+		</if>
+		<if test="status!= null and status!= ''">
+			and status=#{status}
+		</if>
+		<if test="lineStatus!= null and lineStatus!= ''">
+			and line_status=#{lineStatus}
+		</if>
+		<if test="name!= null and name!= ''">
+			and name like CONCAT('%',#{name},'%')
+		</if>
+		<if test="name!= null and name!= ''">
+			and name like CONCAT('%',#{name},'%')
+		</if>
+		<if test="showType!= null and showType!= ''">
+			and show_type=#{showType}
+		</if>
+		order by create_time desc
+	</select>
+
+	<update id="delImageTextById">
+		update t_image_text set is_delete='y' where id=#{id}
+	</update>
+
+
+	<update id="unAgreeImageTextById">
+		update t_image_text set status='未审核' where id=#{id}
+	</update>
+
+	<update id="agreeImageTextById">
+		update t_image_text set status='已审核' where id=#{id}
+	</update>
+
+	<update id="unAgreeOnlineById">
+		update t_image_text set line_status='已下线' where id=#{id}
+	</update>
+
+	<update id="agreeOnlineById">
+		update t_image_text set line_status='已上线' where id=#{id}
+	</update>
+</mapper>

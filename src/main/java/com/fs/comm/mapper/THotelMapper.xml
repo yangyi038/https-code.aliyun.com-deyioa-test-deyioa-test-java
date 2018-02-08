@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.THotelMapper">
+
+	<resultMap id="BaseResultMap" type="com.fs.comm.model.THotel">
+		<id column="sid" property="sid" jdbcType="BIGINT" />
+		
+		<result column="companyid" property="companyid" jdbcType="BIGINT" />
+		<result column="operatorid" property="operatorid" jdbcType="BIGINT" />
+		<result column="dealerid" property="dealerid" jdbcType="BIGINT" />
+		
+		<result column="hotelnum" property="hotelnum" jdbcType="INTEGER" />
+		<result column="hotelname" property="hotelname" jdbcType="VARCHAR" />
+		<result column="hotelshort" property="hotelshort" jdbcType="VARCHAR" />
+		<result column="hotelgroup" property="hotelgroup" jdbcType="VARCHAR" />
+		<result column="linkman" property="linkman" jdbcType="VARCHAR" />
+		<result column="cardtype" property="cardtype" jdbcType="INTEGER" />
+		<result column="cardid" property="cardid" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="postcode" property="postcode" jdbcType="INTEGER" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="hoteltype" property="hoteltype" jdbcType="INTEGER" />
+		<result column="logo" property="logo" jdbcType="VARCHAR" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="comm" property="comm" jdbcType="VARCHAR" />
+
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="area" property="area" jdbcType="VARCHAR" />
+
+		<result column="epgfirst" property="epgfirst" jdbcType="VARCHAR" />
+		<result column="epgsecond" property="epgsecond" jdbcType="VARCHAR" />
+
+		<result column="wifi" property="wifi" jdbcType="VARCHAR" />
+		<result column="wifipwd" property="wifipwd" jdbcType="VARCHAR" />
+		<result column="epghome" property="epghome" jdbcType="VARCHAR" />
+		<result column="vod" property="vod" jdbcType="VARCHAR" />
+		<result column="applicationup" property="applicationup"
+			jdbcType="VARCHAR" />
+		<result column="appblacklist" property="appblacklist" jdbcType="VARCHAR" />
+		<result column="openpic" property="openpic" jdbcType="VARCHAR" />
+		<result column="openvideo" property="openvideo" jdbcType="VARCHAR" />
+		<result column="openlogo" property="openlogo" jdbcType="VARCHAR" />
+		<result column="romup" property="romup" jdbcType="VARCHAR" />
+		<result column="backupserver" property="backupserver" jdbcType="VARCHAR" />
+		<result column="ntp" property="ntp" jdbcType="VARCHAR" />
+		<result column="routerpower" property="routerpower" jdbcType="VARCHAR" />
+		<result column="presn" property="presn" jdbcType="VARCHAR" />
+		<result column="mediaserverid" property="mediaserverid"
+			jdbcType="VARCHAR" />
+		<result column="logserver" property="logserver" jdbcType="VARCHAR" />
+		<result column="noticepic" property="noticepic" jdbcType="VARCHAR" />
+		<result column="welcome" property="welcome" jdbcType="VARCHAR" />
+		<result column="txturl" property="txturl" jdbcType="VARCHAR" />
+		<result column="validdate" property="validdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		sid,companyid,operatorid,dealerid, hotelnum, hotelname, hotelgroup, linkman, cardtype,
+		cardid, tel,
+		postcode, address,
+		email, hoteltype, logo, createtime,
+		comm,province,city,area,
+
+		epgfirst,epgsecond,
+		wifi,wifipwd,epghome,vod,applicationup,
+		appblacklist,openpic,openvideo,openlogo,
+		romup,backupserver,ntp,
+		routerpower,
+		presn,mediaserverid,logserver,noticepic,
+		welcome,hotelshort,txturl,validdate
+	</sql>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<!-- 获取最大用户编号 -->
+	<select id="getMaxHotelNum" resultType="java.lang.Integer">
+		select max(hotelnum) from
+		t_hotel
+	</select>
+
+	<!-- 获取酒店列表 -->
+	<select id="getHotelList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select * from t_hotel where 1=1
+		<if test="hotelgroup!=null and hotelgroup!=''">
+			and hotelgroup =#{hotelgroup}
+		</if>
+		<if test="hoteltype!=null and hoteltype!=''">
+			and hoteltype =#{hoteltype}
+		</if>
+		<if test="sid!=null and sid!=''">
+			and sid =#{sid}
+		</if>
+		<if test="companyid !=null ">
+			and companyid =#{companyid}
+		</if>
+		<if test="operatorid !=null ">
+			and operatorid =#{operatorid}
+		</if>
+		<if test="dealerid !=null ">
+			and dealerid =#{dealerid}
+		</if>
+		<if test="hotelname!=null and hotelname!=''">
+			and hotelname =#{hotelname}
+		</if>
+		<if test="content!=null and content!=''">
+			and (hotelname like '%${content}%'
+			or linkman like '%${content}%'
+			or tel like '%${content}%')
+		</if>
+	</select>
+
+	<!--精确查找酒店 -->
+	<select id="getHotel" parameterType="com.fantastic.TBaseExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_hotel
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<!--添加酒店 -->
+	<insert id="insertHotel" parameterType="com.fs.comm.model.THotel">
+		insert into t_hotel (sid,
+		hotelnum, hotelname,
+		hotelgroup, linkman, cardtype,
+		cardid, tel,
+		postcode,
+		address, email, hoteltype,
+		logo, createtime, comm,
+		province,city,area,
+		epgfirst,epgsecond,
+		wifi,wifipwd,epghome,vod,applicationup,
+		appblacklist,openpic,openvideo,openlogo,
+		romup,backupserver,ntp,
+		routerpower,
+		presn,mediaserverid,logserver,noticepic,
+		companyid,welcome,hotelshort,txturl,validdate
+		,operatorid,dealerid
+		)
+		values
+		(
+		#{sid,jdbcType=BIGINT},
+		#{hotelnum,jdbcType=INTEGER},
+		#{hotelname,jdbcType=VARCHAR},
+		#{hotelgroup,jdbcType=VARCHAR},
+		#{linkman,jdbcType=VARCHAR},
+		#{cardtype,jdbcType=INTEGER},
+		#{cardid,jdbcType=VARCHAR},
+		#{tel,jdbcType=VARCHAR},
+		#{postcode,jdbcType=INTEGER},
+		#{address,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{hoteltype,jdbcType=INTEGER},
+		#{logo,jdbcType=VARCHAR},
+		#{createtime,jdbcType=TIMESTAMP},
+		#{comm,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{area,jdbcType=VARCHAR},
+		#{epgfirst,jdbcType=VARCHAR},#{epgsecond,jdbcType=VARCHAR},
+
+		#{wifi,jdbcType=VARCHAR},
+		#{wifipwd,jdbcType=VARCHAR},#{epghome,jdbcType=VARCHAR},
+		#{vod,jdbcType=VARCHAR},#{applicationup,jdbcType=VARCHAR},#{appblacklist,jdbcType=VARCHAR},
+		#{openpic,jdbcType=VARCHAR},
+		#{openvideo,jdbcType=VARCHAR},#{openlogo,jdbcType=VARCHAR},
+		#{romup,jdbcType=VARCHAR},#{backupserver,jdbcType=VARCHAR},#{ntp,jdbcType=VARCHAR},
+		#{routerpower,jdbcType=VARCHAR},
+		#{presn,jdbcType=VARCHAR},#{mediaserverid,jdbcType=VARCHAR},
+		#{logserver,jdbcType=VARCHAR},#{noticepic,jdbcType=VARCHAR},
+		#{companyid,jdbcType=BIGINT},#{welcome,jdbcType=VARCHAR}
+		,#{hotelshort,jdbcType=VARCHAR}
+		,#{txturl,jdbcType=VARCHAR}
+		,#{validdate,jdbcType=TIMESTAMP}
+		,#{operatorid,jdbcType=BIGINT}
+		,#{dealerid,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<!--删除酒店 -->
+	<delete id="deleteHotel" parameterType="java.lang.Long">
+		delete from t_hotel
+		where
+		sid = #{sid,jdbcType=BIGINT}
+	</delete>
+
+	<!-- 查询酒店是否存在 -->
+	<select id="countHotel" resultType="java.lang.Integer">
+		select count(1) from t_hotel b where 1=1
+		<if test="sid!= null and sid!= ''">
+			and b.sid=#{sid}
+		</if>
+	</select>
+
+	<!-- 获取酒店详情 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_hotel
+		where sid = #{sid,jdbcType=BIGINT}
+	</select>
+
+
+	<!-- -->
+	<insert id="insertSelective" parameterType="com.fs.comm.model.THotel">
+		insert into t_hotel
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="hotelnum != null">
+				hotelnum,
+			</if>
+			<if test="hotelname != null">
+				hotelname,
+			</if>
+			<if test="hotelgroup != null">
+				hotelgroup,
+			</if>
+			<if test="linkman != null">
+				linkman,
+			</if>
+			<if test="cardtype != null">
+				cardtype,
+			</if>
+			<if test="cardid != null">
+				cardid,
+			</if>
+			<if test="tel != null">
+				tel,
+			</if>
+			<if test="postcode != null">
+				postcode,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="hoteltype != null">
+				hoteltype,
+			</if>
+			<if test="logo != null">
+				logo,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="comm != null">
+				comm,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=BIGINT},
+			</if>
+			<if test="hotelnum != null">
+				#{hotelnum,jdbcType=INTEGER},
+			</if>
+			<if test="hotelname != null">
+				#{hotelname,jdbcType=VARCHAR},
+			</if>
+			<if test="hotelgroup != null">
+				#{hotelgroup,jdbcType=VARCHAR},
+			</if>
+			<if test="linkman != null">
+				#{linkman,jdbcType=VARCHAR},
+			</if>
+			<if test="cardtype != null">
+				#{cardtype,jdbcType=INTEGER},
+			</if>
+			<if test="cardid != null">
+				#{cardid,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="postcode != null">
+				#{postcode,jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="hoteltype != null">
+				#{hoteltype,jdbcType=INTEGER},
+			</if>
+			<if test="logo != null">
+				#{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="comm != null">
+				#{comm,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+	<!--更新酒店信息 -->
+	<update id="updateHotelInfo" parameterType="com.fs.comm.model.THotel">
+		update t_hotel
+		<set>
+			<if test="hotelnum != null">
+				hotelnum = #{hotelnum,jdbcType=INTEGER},
+			</if>
+			<if test="hotelname != null">
+				hotelname = #{hotelname,jdbcType=VARCHAR},
+			</if>
+			<if test="hotelgroup != null">
+				hotelgroup = #{hotelgroup,jdbcType=VARCHAR},
+			</if>
+			<if test="linkman != null">
+				linkman = #{linkman,jdbcType=VARCHAR},
+			</if>
+			<if test="cardtype != null">
+				cardtype = #{cardtype,jdbcType=INTEGER},
+			</if>
+			<if test="cardid != null">
+				cardid = #{cardid,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="postcode != null">
+				postcode = #{postcode,jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="hoteltype != null">
+				hoteltype = #{hoteltype,jdbcType=INTEGER},
+			</if>
+			<if test="logo != null">
+				logo = #{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="comm != null">
+				comm = #{comm,jdbcType=VARCHAR},
+			</if>
+
+			<if test="province != null and province != ''">
+				province = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null and city !=''">
+				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null and area !=''">
+				area = #{area,jdbcType=VARCHAR},
+			</if>
+			<if test="epgfirst != null and epgfirst !=''">
+				epgfirst = #{epgfirst,jdbcType=VARCHAR},
+			</if>
+			<if test="epgsecond != null and epgsecond !=''">
+				epgsecond = #{epgsecond,jdbcType=VARCHAR},
+			</if>
+			<if test=" wifi != null and  wifi  !=''">
+				wifi = #{ wifi ,jdbcType=VARCHAR},
+			</if>
+			<if test="wifipwd != null and  wifipwd  !=''">
+				wifipwd = #{ wifipwd ,jdbcType=VARCHAR},
+			</if>
+			<if test="  epghome != null and  epghome  !=''">
+				epghome = #{ epghome ,jdbcType=VARCHAR},
+			</if>
+			<if test=" vod  != null and  vod  !=''">
+				vod = #{ vod ,jdbcType=VARCHAR},
+			</if>
+			<if test="  applicationup != null and applicationup   !=''">
+				applicationup = #{ applicationup ,jdbcType=VARCHAR},
+			</if>
+			<if test=" appblacklist  != null and  appblacklist  !=''">
+				appblacklist = #{ appblacklist ,jdbcType=VARCHAR},
+			</if>
+			<if test=" openpic  != null and openpic   !=''">
+				openpic = #{ openpic ,jdbcType=VARCHAR},
+			</if>
+			<if test=" openvideo  != null and  openvideo  !=''">
+				openvideo = #{ openvideo ,jdbcType=VARCHAR},
+			</if>
+			<if test=" openlogo  != null and  openlogo  !=''">
+				openlogo = #{ openlogo ,jdbcType=VARCHAR},
+			</if>
+			<if test=" romup  != null and  romup  !=''">
+				romup = #{ romup ,jdbcType=VARCHAR},
+			</if>
+			<if test=" backupserver  != null and backupserver   !=''">
+				backupserver = #{ backupserver ,jdbcType=VARCHAR},
+			</if>
+			<if test=" ntp  != null and  ntp  !=''">
+				ntp = #{ ntp ,jdbcType=VARCHAR},
+			</if>
+			<if test=" routerpower  != null and routerpower   !=''">
+				routerpower = #{ routerpower ,jdbcType=VARCHAR},
+			</if>
+			<if test=" presn  != null and  presn  !=''">
+				presn = #{ presn ,jdbcType=VARCHAR},
+			</if>
+			<if test=" mediaserverid  != null and  mediaserverid  !=''">
+				mediaserverid = #{ mediaserverid ,jdbcType=VARCHAR},
+			</if>
+			<if test=" logserver  != null and  logserver  !=''">
+				logserver = #{ logserver ,jdbcType=VARCHAR},
+			</if>
+			<if test="  noticepic != null and  noticepic  !=''">
+				noticepic = #{ noticepic ,jdbcType=VARCHAR},
+			</if>
+			<if test="  welcome != null and  welcome  !=''">
+				welcome = #{ welcome ,jdbcType=VARCHAR},
+			</if>
+			<if test="  hotelshort != null and  hotelshort  !=''">
+				hotelshort = #{ hotelshort ,jdbcType=VARCHAR},
+			</if>
+			<if test="  txturl != null and  txturl  !=''">
+				txturl = #{ txturl ,jdbcType=VARCHAR},
+			</if>
+			<if test="validdate != null">
+				validdate = #{validdate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=BIGINT}
+	</update>
+
+	<!--修改酒店信息 -->
+	<update id="updateByPrimaryKey" parameterType="com.fs.comm.model.THotel">
+		update t_hotel
+		set
+		hotelnum = #{hotelnum,jdbcType=INTEGER},
+		hotelname =
+		#{hotelname,jdbcType=VARCHAR},
+		hotelgroup =
+		#{hotelgroup,jdbcType=VARCHAR},
+		linkman = #{linkman,jdbcType=VARCHAR},
+		cardtype = #{cardtype,jdbcType=INTEGER},
+		cardid =
+		#{cardid,jdbcType=VARCHAR},
+		tel = #{tel,jdbcType=VARCHAR},
+		postcode =
+		#{postcode,jdbcType=INTEGER},
+		address = #{address,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		hoteltype =
+		#{hoteltype,jdbcType=INTEGER},
+		logo = #{logo,jdbcType=VARCHAR},
+		createtime = #{createtime,jdbcType=TIMESTAMP},
+		comm =
+		#{comm,jdbcType=VARCHAR},
+		province=#{province,jdbcType=VARCHAR},city=#{city,jdbcType=VARCHAR},area=#{area,jdbcType=VARCHAR},
+
+		epgfirst=#{epgfirst,jdbcType=VARCHAR},epgsecond=#{epgsecond,jdbcType=VARCHAR},
+		wifi=#{wifi,jdbcType=VARCHAR},
+		wifipwd=#{wifipwd,jdbcType=VARCHAR},epghome=#{epghome,jdbcType=VARCHAR},
+		vod=#{vod,jdbcType=VARCHAR},applicationup=#{applicationup,jdbcType=VARCHAR},
+		appblacklist=#{appblacklist,jdbcType=VARCHAR},
+		openpic=#{openpic,jdbcType=VARCHAR},
+		openvideo=#{openvideo,jdbcType=VARCHAR},openlogo=#{openlogo,jdbcType=VARCHAR},
+		romup=#{romup,jdbcType=VARCHAR},backupserver=#{backupserver,jdbcType=VARCHAR},
+		ntp=#{ntp,jdbcType=VARCHAR},
+		routerpower=#{routerpower,jdbcType=VARCHAR},
+		presn=#{presn,jdbcType=VARCHAR},mediaserverid=#{mediaserverid,jdbcType=VARCHAR},
+		logserver=#{logserver,jdbcType=VARCHAR},noticepic=#{noticepic,jdbcType=VARCHAR}
+		where sid = #{sid,jdbcType=BIGINT}
+	</update>
+
+
+	<!-- 根据查询条件获取唯一机顶盒信息 -->
+	<select id="getDistinctHotelByParams" resultMap="BaseResultMap"
+		parameterType="com.fs.comm.model.TStb">
+		select * from t_hotel
+		where 1=1
+		<if test="hotelsid!=null and hotelsid!=''">
+			and sid =#{hotelsid}
+		</if>
+	</select>
+
+	<select id="getTHotelById" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select * from t_hotel where sid = #{sid}
+	</select>
+
+</mapper>

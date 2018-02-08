@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.TCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.fs.comm.model.TCompany" >
+    <id column="sid" property="sid" jdbcType="BIGINT" />
+    <result column="companyname" property="companyname" jdbcType="VARCHAR" />
+    <result column="companycode" property="companycode" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="loginpwd" property="loginpwd" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="boss" property="boss" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="isopen" property="isopen" jdbcType="INTEGER" />
+    <result column="paytime" property="paytime" jdbcType="TIMESTAMP" />
+    <result column="validtime" property="validtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, companyname, companycode, role, loginpwd, token, boss, phone, createtime, isopen, 
+    paytime, validtime
+  </sql>
+  
+  <!--获取运营商列表  -->
+  <select id="getCompanyList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_company
+    where 1=1 
+    <if test="sid !=null and sid !=''">
+    	 and sid = #{sid,jdbcType=BIGINT}
+    </if>
+    <if test="companyname !=null and companyname !=''">
+    	 and companyname = #{companyname,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <!-- 添加运营商 -->
+  <insert id="insertCompany" parameterType="com.fs.comm.model.TCompany" useGeneratedKeys="true" keyProperty="sid">
+    insert into t_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="companyname != null" >
+        companyname,
+      </if>
+      <if test="companycode != null" >
+        companycode,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="loginpwd != null" >
+        loginpwd,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="boss != null" >
+        boss,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="isopen != null" >
+        isopen,
+      </if>
+      <if test="paytime != null" >
+        paytime,
+      </if>
+      <if test="validtime != null" >
+        validtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=BIGINT},
+      </if>
+      <if test="companyname != null" >
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companycode != null" >
+        #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="loginpwd != null" >
+        #{loginpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="boss != null" >
+        #{boss,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isopen != null" >
+        #{isopen,jdbcType=INTEGER},
+      </if>
+      <if test="paytime != null" >
+        #{paytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validtime != null" >
+        #{validtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 删除运营商 -->
+   <delete id="delCompany" parameterType="java.lang.Long" >
+    delete from t_company
+    where sid = #{sid,jdbcType=BIGINT}
+  </delete>
+  
+  <!-- 主键查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_company
+    where sid = #{sid,jdbcType=BIGINT}
+  </select>
+  
+  
+ 
+  <insert id="insert" parameterType="com.fs.comm.model.TCompany" >
+    insert into t_company (sid, companyname, companycode, 
+      role, loginpwd, token, 
+      boss, phone, createtime, 
+      isopen, paytime, validtime
+      )
+    values (#{sid,jdbcType=BIGINT}, #{companyname,jdbcType=VARCHAR}, #{companycode,jdbcType=VARCHAR}, 
+      #{role,jdbcType=INTEGER}, #{loginpwd,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, 
+      #{boss,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{isopen,jdbcType=INTEGER}, #{paytime,jdbcType=TIMESTAMP}, #{validtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <!--修改运营商  -->
+  <update id="updateCompany" parameterType="com.fs.comm.model.TCompany" >
+    update t_company
+    <set >
+      <if test="companyname != null" >
+        companyname = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companycode != null" >
+        companycode = #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="loginpwd != null" >
+        loginpwd = #{loginpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="boss != null" >
+        boss = #{boss,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isopen != null" >
+        isopen = #{isopen,jdbcType=INTEGER},
+      </if>
+      <if test="paytime != null" >
+        paytime = #{paytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validtime != null" >
+        validtime = #{validtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=BIGINT}
+  </update>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.fs.comm.model.TCompany" >
+    update t_company
+    set companyname = #{companyname,jdbcType=VARCHAR},
+      companycode = #{companycode,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER},
+      loginpwd = #{loginpwd,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      boss = #{boss,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      isopen = #{isopen,jdbcType=INTEGER},
+      paytime = #{paytime,jdbcType=TIMESTAMP},
+      validtime = #{validtime,jdbcType=TIMESTAMP}
+    where sid = #{sid,jdbcType=BIGINT}
+  </update>
+</mapper>

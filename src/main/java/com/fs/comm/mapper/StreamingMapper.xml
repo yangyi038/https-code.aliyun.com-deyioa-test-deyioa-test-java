@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.StreamingMapper" >
+  <resultMap id="BaseResultMap" type="com.fs.comm.model.Streaming" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="programme_num" property="programmeNum" jdbcType="VARCHAR" />
+    <result column="firmware" property="firmware" jdbcType="VARCHAR" />
+    <result column="software_version" property="softwareVersion" jdbcType="VARCHAR" />
+    <result column="production_data" property="productionData" jdbcType="TIMESTAMP" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="over_time" property="overTime" jdbcType="TIMESTAMP" />
+    <result column="root_password" property="rootPassword" jdbcType="VARCHAR" />
+    <result column="hotel_password" property="hotelPassword" jdbcType="VARCHAR" />
+    <result column="edge_ip" property="edgeIp" jdbcType="VARCHAR" />
+    <result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
+    <result column="lats_ip" property="latsIp" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, programme_num, firmware, software_version, production_data, start_time, over_time, 
+    root_password, hotel_password, edge_ip, last_time, lats_ip, company_id, is_delete
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_streaming_configuration
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_streaming_configuration
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.fs.comm.model.Streaming" >
+    insert into t_streaming_configuration (id, programme_num, firmware, 
+      software_version, production_data, start_time, 
+      over_time, root_password, hotel_password, 
+      edge_ip, last_time, lats_ip, 
+      company_id, is_delete)
+    values (#{id,jdbcType=BIGINT}, #{programmeNum,jdbcType=VARCHAR}, #{firmware,jdbcType=VARCHAR}, 
+      #{softwareVersion,jdbcType=VARCHAR}, #{productionData,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{overTime,jdbcType=TIMESTAMP}, #{rootPassword,jdbcType=VARCHAR}, #{hotelPassword,jdbcType=VARCHAR}, 
+      #{edgeIp,jdbcType=VARCHAR}, #{lastTime,jdbcType=TIMESTAMP}, #{latsIp,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=BIGINT}, #{isDelete,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.fs.comm.model.Streaming" >
+    insert into t_streaming_configuration
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="programmeNum != null" >
+        programme_num,
+      </if>
+      <if test="firmware != null" >
+        firmware,
+      </if>
+      <if test="softwareVersion != null" >
+        software_version,
+      </if>
+      <if test="productionData != null" >
+        production_data,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="overTime != null" >
+        over_time,
+      </if>
+      <if test="rootPassword != null" >
+        root_password,
+      </if>
+      <if test="hotelPassword != null" >
+        hotel_password,
+      </if>
+      <if test="edgeIp != null" >
+        edge_ip,
+      </if>
+      <if test="lastTime != null" >
+        last_time,
+      </if>
+      <if test="latsIp != null" >
+        lats_ip,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="programmeNum != null" >
+        #{programmeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="firmware != null" >
+        #{firmware,jdbcType=VARCHAR},
+      </if>
+      <if test="softwareVersion != null" >
+        #{softwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="productionData != null" >
+        #{productionData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overTime != null" >
+        #{overTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rootPassword != null" >
+        #{rootPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelPassword != null" >
+        #{hotelPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="edgeIp != null" >
+        #{edgeIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latsIp != null" >
+        #{latsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.fs.comm.model.Streaming" >
+    update t_streaming_configuration
+    <set >
+      <if test="programmeNum != null" >
+        programme_num = #{programmeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="firmware != null" >
+        firmware = #{firmware,jdbcType=VARCHAR},
+      </if>
+      <if test="softwareVersion != null" >
+        software_version = #{softwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="productionData != null" >
+        production_data = #{productionData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overTime != null" >
+        over_time = #{overTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rootPassword != null" >
+        root_password = #{rootPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelPassword != null" >
+        hotel_password = #{hotelPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="edgeIp != null" >
+        edge_ip = #{edgeIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latsIp != null" >
+        lats_ip = #{latsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.fs.comm.model.Streaming" >
+    update t_streaming_configuration
+    set programme_num = #{programmeNum,jdbcType=VARCHAR},
+      firmware = #{firmware,jdbcType=VARCHAR},
+      software_version = #{softwareVersion,jdbcType=VARCHAR},
+      production_data = #{productionData,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      over_time = #{overTime,jdbcType=TIMESTAMP},
+      root_password = #{rootPassword,jdbcType=VARCHAR},
+      hotel_password = #{hotelPassword,jdbcType=VARCHAR},
+      edge_ip = #{edgeIp,jdbcType=VARCHAR},
+      last_time = #{lastTime,jdbcType=TIMESTAMP},
+      lats_ip = #{latsIp,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=BIGINT},
+      is_delete = #{isDelete,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!--浏览流媒体配置  -->
+   <select id="getAllStreamingInfo" resultType="hashmap">
+  	select * from t_streaming_configuration where is_delete='n'
+  	<if test="companyid!= null and companyid!= ''">
+		and company_id=#{companyid}
+	</if>
+	<if test="programmeNum!= null and programmeNum!= ''">
+		and programme_num like CONCAT('%',#{programmeNum},'%') 
+	</if>
+	order by id desc
+  </select>
+  
+  <update id="delStreamingById">
+  	  update t_streaming_configuration set is_delete='y' where id=#{id}
+  </update>
+</mapper>

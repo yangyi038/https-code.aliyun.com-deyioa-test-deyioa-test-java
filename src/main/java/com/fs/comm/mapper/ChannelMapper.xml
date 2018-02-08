@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.ChannelMapper">
+	<resultMap id="BaseResultMap" type="com.fs.comm.model.Channel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="number" property="number" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="bilingual_signs" property="bilingualSigns"
+			jdbcType="VARCHAR" />
+		<result column="protective_emblem" property="protectiveEmblem"
+			jdbcType="VARCHAR" />
+		<result column="language" property="language" jdbcType="VARCHAR" />
+		<result column="video_parameter" property="videoParameter"
+			jdbcType="VARCHAR" />
+		<result column="audio_parameter" property="audioParameter"
+			jdbcType="VARCHAR" />
+		<result column="signal_source" property="signalSource"
+			jdbcType="VARCHAR" />
+		<result column="bit_stream" property="bitStream" jdbcType="VARCHAR" />
+		<result column="star_level" property="starLevel" jdbcType="INTEGER" />
+		<result column="tv_logo" property="tvLogo" jdbcType="VARCHAR" />
+		<result column="country" property="country" jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="supplier" property="supplier" jdbcType="VARCHAR" />
+		<result column="correlation" property="correlation" jdbcType="VARCHAR" />
+		<result column="content_designator" property="contentDesignator"
+			jdbcType="VARCHAR" />
+		<result column="tv_describe" property="tvDescribe" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="line_status" property="lineStatus" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="companyid" property="companyid" jdbcType="BIGINT" />
+
+		<result column="operatorid" property="operatorid" jdbcType="BIGINT" />
+		<result column="dealerid" property="dealerid" jdbcType="BIGINT" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, number, name, type, bilingual_signs, protective_emblem,
+		language,
+		video_parameter,
+		audio_parameter, signal_source, bit_stream,
+		star_level, tv_logo, country, province,
+		city, email, supplier,
+		correlation, content_designator, tv_describe,
+		status, line_status,
+		create_date, is_delete
+		,companyid
+		,operatorid
+		,dealerid
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_channel
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_channel
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<!--添加频道 -->
+	<insert id="insertChannel" parameterType="com.fs.comm.model.Channel"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_channel (id, number,
+		name,
+		type, bilingual_signs, protective_emblem,
+		language,
+		video_parameter, audio_parameter,
+		signal_source, bit_stream,
+		star_level,
+		tv_logo, country, province,
+		city, email, supplier,
+		correlation, content_designator, tv_describe,
+		status, line_status,
+		create_date,
+		is_delete
+		,companyid
+		,operatorid
+		,dealerid
+		)
+		values (#{id,jdbcType=INTEGER},
+		#{number,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR}, #{bilingualSigns,jdbcType=VARCHAR},
+		#{protectiveEmblem,jdbcType=VARCHAR},
+		#{language,jdbcType=VARCHAR},
+		#{videoParameter,jdbcType=VARCHAR},
+		#{audioParameter,jdbcType=VARCHAR},
+		#{signalSource,jdbcType=VARCHAR},
+		#{bitStream,jdbcType=VARCHAR}, #{starLevel,jdbcType=INTEGER},
+		#{tvLogo,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR},
+		#{city,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR},
+		#{correlation,jdbcType=VARCHAR},
+		#{contentDesignator,jdbcType=VARCHAR}, #{tvDescribe,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR}, #{lineStatus,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{isDelete,jdbcType=VARCHAR}
+		,#{companyid,jdbcType=BIGINT}
+		,#{operatorid,jdbcType=BIGINT}
+		,#{dealerid,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.fs.comm.model.Channel">
+		insert into t_channel
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="number != null">
+				number,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="bilingualSigns != null">
+				bilingual_signs,
+			</if>
+			<if test="protectiveEmblem != null">
+				protective_emblem,
+			</if>
+			<if test="language != null">
+				language,
+			</if>
+			<if test="videoParameter != null">
+				video_parameter,
+			</if>
+			<if test="audioParameter != null">
+				audio_parameter,
+			</if>
+			<if test="signalSource != null">
+				signal_source,
+			</if>
+			<if test="bitStream != null">
+				bit_stream,
+			</if>
+			<if test="starLevel != null">
+				star_level,
+			</if>
+			<if test="tvLogo != null">
+				tv_logo,
+			</if>
+			<if test="country != null">
+				country,
+			</if>
+			<if test="province != null">
+				province,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="supplier != null">
+				supplier,
+			</if>
+			<if test="correlation != null">
+				correlation,
+			</if>
+			<if test="contentDesignator != null">
+				content_designator,
+			</if>
+			<if test="tvDescribe != null">
+				tv_describe,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="lineStatus != null">
+				line_status,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="number != null">
+				#{number,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="bilingualSigns != null">
+				#{bilingualSigns,jdbcType=VARCHAR},
+			</if>
+			<if test="protectiveEmblem != null">
+				#{protectiveEmblem,jdbcType=VARCHAR},
+			</if>
+			<if test="language != null">
+				#{language,jdbcType=VARCHAR},
+			</if>
+			<if test="videoParameter != null">
+				#{videoParameter,jdbcType=VARCHAR},
+			</if>
+			<if test="audioParameter != null">
+				#{audioParameter,jdbcType=VARCHAR},
+			</if>
+			<if test="signalSource != null">
+				#{signalSource,jdbcType=VARCHAR},
+			</if>
+			<if test="bitStream != null">
+				#{bitStream,jdbcType=VARCHAR},
+			</if>
+			<if test="starLevel != null">
+				#{starLevel,jdbcType=INTEGER},
+			</if>
+			<if test="tvLogo != null">
+				#{tvLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="country != null">
+				#{country,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="supplier != null">
+				#{supplier,jdbcType=VARCHAR},
+			</if>
+			<if test="correlation != null">
+				#{correlation,jdbcType=VARCHAR},
+			</if>
+			<if test="contentDesignator != null">
+				#{contentDesignator,jdbcType=VARCHAR},
+			</if>
+			<if test="tvDescribe != null">
+				#{tvDescribe,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="lineStatus != null">
+				#{lineStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.fs.comm.model.Channel">
+		update t_channel
+		<set>
+			<if test="number != null">
+				number = #{number,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="bilingualSigns != null">
+				bilingual_signs = #{bilingualSigns,jdbcType=VARCHAR},
+			</if>
+			<if test="protectiveEmblem != null">
+				protective_emblem = #{protectiveEmblem,jdbcType=VARCHAR},
+			</if>
+			<if test="language != null">
+				language = #{language,jdbcType=VARCHAR},
+			</if>
+			<if test="videoParameter != null">
+				video_parameter = #{videoParameter,jdbcType=VARCHAR},
+			</if>
+			<if test="audioParameter != null">
+				audio_parameter = #{audioParameter,jdbcType=VARCHAR},
+			</if>
+			<if test="signalSource != null">
+				signal_source = #{signalSource,jdbcType=VARCHAR},
+			</if>
+			<if test="bitStream != null">
+				bit_stream = #{bitStream,jdbcType=VARCHAR},
+			</if>
+			<if test="starLevel != null">
+				star_level = #{starLevel,jdbcType=INTEGER},
+			</if>
+			<if test="tvLogo != null">
+				tv_logo = #{tvLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="country != null">
+				country = #{country,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				province = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="supplier != null">
+				supplier = #{supplier,jdbcType=VARCHAR},
+			</if>
+			<if test="correlation != null">
+				correlation = #{correlation,jdbcType=VARCHAR},
+			</if>
+			<if test="contentDesignator != null">
+				content_designator =
+				#{contentDesignator,jdbcType=VARCHAR},
+			</if>
+			<if test="tvDescribe != null">
+				tv_describe = #{tvDescribe,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="lineStatus != null">
+				line_status = #{lineStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.fs.comm.model.Channel">
+		update t_channel
+		set number = #{number,jdbcType=INTEGER},
+		name =
+		#{name,jdbcType=VARCHAR},
+		type = #{type,jdbcType=VARCHAR},
+		bilingual_signs = #{bilingualSigns,jdbcType=VARCHAR},
+		protective_emblem = #{protectiveEmblem,jdbcType=VARCHAR},
+		language =
+		#{language,jdbcType=VARCHAR},
+		video_parameter =
+		#{videoParameter,jdbcType=VARCHAR},
+		audio_parameter =
+		#{audioParameter,jdbcType=VARCHAR},
+		signal_source =
+		#{signalSource,jdbcType=VARCHAR},
+		bit_stream =
+		#{bitStream,jdbcType=VARCHAR},
+		star_level =
+		#{starLevel,jdbcType=INTEGER},
+		tv_logo = #{tvLogo,jdbcType=VARCHAR},
+		country = #{country,jdbcType=VARCHAR},
+		province =
+		#{province,jdbcType=VARCHAR},
+		city = #{city,jdbcType=VARCHAR},
+		email =
+		#{email,jdbcType=VARCHAR},
+		supplier = #{supplier,jdbcType=VARCHAR},
+		correlation = #{correlation,jdbcType=VARCHAR},
+		content_designator =
+		#{contentDesignator,jdbcType=VARCHAR},
+		tv_describe =
+		#{tvDescribe,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		line_status = #{lineStatus,jdbcType=VARCHAR},
+		create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		is_delete =
+		#{isDelete,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 浏览直播频道列表 -->
+	<select id="getAllChannelInfo" resultType="hashmap">
+		select * from t_channel where is_delete='n'
+		<if test="companyid!= null and companyid!= ''">
+			and companyid=#{companyid}
+		</if>
+		<if test="operatorid != null and operatorid != ''">
+			and operatorid=#{operatorid}
+		</if>
+		<if test="dealerid != null and dealerid != ''">
+			and dealerid=#{dealerid}
+		</if>
+		<if test="status!= null and status!= ''">
+			and status=#{status}
+		</if>
+		<if test="line_status!= null and line_status!= ''">
+			and line_status=#{line_status}
+		</if>
+		<if test="name!= null and name!= ''">
+			and name like CONCAT('%',#{name},'%')
+		</if>
+		<if test="name!= null and name!= ''">
+			or tv_logo like CONCAT('%',#{name},'%')
+		</if>
+		order by create_date desc
+	</select>
+
+	<update id="delChannelById">
+		update t_channel set is_delete='y' where id=#{id}
+	</update>
+
+	<update id="agreeChannel">
+		update t_channel set status='已审核' where id=#{id}
+	</update>
+
+	<update id="unAgreeChannel">
+		update t_channel set status='未审核' where id=#{id}
+	</update>
+
+	<update id="onlineChannel">
+		update t_channel set line_status='已上线' where id=#{id}
+	</update>
+
+	<update id="unlineChannel">
+		update t_channel set line_status='已下线' where id=#{id}
+	</update>
+
+	<select id="selectAllChannelNo" resultMap="BaseResultMap">
+		select * from
+		t_channel where is_delete='n'
+	</select>
+
+	<select id="selectByNumber" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select * from t_channel where number=#{number}
+	</select>
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.comm.mapper.MianMapper">
+	<resultMap type="com.fs.comm.model.Sysmenu" id="sysmenu">
+		<result property="id" column="ID" />
+		<result property="functioncode" column="FUNCTIONCODE" />
+		<result property="menulink" column="MENULINK" />
+		<result property="menuname" column="MENUNAME" />
+		<result property="menuparent" column="MENUPARENT" />
+		<result property="menuorder" column="MENUORDER" />
+		<result property="valid" column="VALID" />
+		<result property="addtime" column="ADDTIME" />
+		<result property="functiontype" column="FUNCTIONTYPE" />
+		<result property="img" column="IMG" />
+		<result property="cssclass" column="CSSCLASS" />
+	</resultMap>
+	<select id="getmenu" resultMap="sysmenu">
+		select * from sysmenu a where a.valid=1
+		<if test="menuparent== null or menuparent== ''">
+			and a.menuparent=99999999
+		</if>
+		<if test="menuparent!= null and menuparent!= ''">
+			and a.menuparent=#{menuparent}
+		</if>
+		order by a.menuorder
+	</select>
+	
+	
+	
+	<resultMap type="com.fs.comm.model.Parameter" id="parameter">
+		<result property="id" column="ID" />
+		<result property="ptype" column="ptype" />
+		<result property="pname" column="pname" />
+		<result property="isshow" column="isshow" />
+		<result property="porder" column="porder" />
+		<result property="pcode" column="pcode" />
+	</resultMap>
+	<select id="getParameters" resultMap="parameter">
+		select * from parameter a where a.isshow=1
+		<if test="ptype!= null and ptype!= ''">
+			and a.ptype=#{ptype}
+		</if>
+		order by a.porder
+	</select>
+</mapper>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.TApplicationMapper">
+	<resultMap id="BaseResultMap" type="com.fs.comm.model.TApplication">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="parameter_type" property="parameterType"
+			jdbcType="VARCHAR" />
+		<result column="developer_name" property="developerName"
+			jdbcType="VARCHAR" />
+		<result column="grader" property="grader" jdbcType="VARCHAR" />
+		<result column="apply_parameter" property="applyParameter"
+			jdbcType="VARCHAR" />
+		<result column="synopsis" property="synopsis" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="online_time" property="onlineTime" jdbcType="TIMESTAMP" />
+		<result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="companyid" property="companyid" jdbcType="BIGINT" />
+
+		<result column="operatorid" property="operatorid" jdbcType="BIGINT" />
+		<result column="dealerid" property="dealerid" jdbcType="BIGINT" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, name, parameter_type, developer_name, grader, apply_parameter,
+		synopsis, status,
+		online_time, is_delete
+		,companyid
+		,operatorid
+		,dealerid
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_application
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_application
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+
+	<insert id="insert" parameterType="com.fs.comm.model.TApplication"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_application (id, name, parameter_type,
+		developer_name, grader, apply_parameter,
+		synopsis, status, online_time,
+		is_delete)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{parameterType,jdbcType=VARCHAR},
+		#{developerName,jdbcType=VARCHAR}, #{grader,jdbcType=VARCHAR}, #{applyParameter,jdbcType=VARCHAR},
+		#{synopsis,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+		#{onlineTime,jdbcType=TIMESTAMP},
+		#{isDelete,jdbcType=VARCHAR})
+	</insert>
+
+	<!-- 添加应用 -->
+	<insert id="insertApplication" parameterType="com.fs.comm.model.TApplication"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_application
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="parameterType != null">
+				parameter_type,
+			</if>
+			<if test="developerName != null">
+				developer_name,
+			</if>
+			<if test="grader != null">
+				grader,
+			</if>
+			<if test="applyParameter != null">
+				apply_parameter,
+			</if>
+			<if test="synopsis != null">
+				synopsis,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="onlineTime != null">
+				online_time,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+			<if test="companyid != null">
+				companyid,
+			</if>
+			<if test="operatorid != null">
+				operatorid,
+			</if>
+			<if test="dealerid != null">
+				dealerid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="parameterType != null">
+				#{parameterType,jdbcType=VARCHAR},
+			</if>
+			<if test="developerName != null">
+				#{developerName,jdbcType=VARCHAR},
+			</if>
+			<if test="grader != null">
+				#{grader,jdbcType=VARCHAR},
+			</if>
+			<if test="applyParameter != null">
+				#{applyParameter,jdbcType=VARCHAR},
+			</if>
+			<if test="synopsis != null">
+				#{synopsis,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="onlineTime != null">
+				#{onlineTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=VARCHAR},
+			</if>
+			<if test="companyid != null">
+				#{companyid,jdbcType=BIGINT},
+			</if>
+			<if test="operatorid != null">
+				#{operatorid,jdbcType=BIGINT},
+			</if>
+			<if test="dealerid != null">
+				#{dealerid,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.fs.comm.model.TApplication">
+		update t_application
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="parameterType != null">
+				parameter_type = #{parameterType,jdbcType=VARCHAR},
+			</if>
+			<if test="developerName != null">
+				developer_name = #{developerName,jdbcType=VARCHAR},
+			</if>
+			<if test="grader != null">
+				grader = #{grader,jdbcType=VARCHAR},
+			</if>
+			<if test="applyParameter != null">
+				apply_parameter = #{applyParameter,jdbcType=VARCHAR},
+			</if>
+			<if test="synopsis != null">
+				synopsis = #{synopsis,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="onlineTime != null">
+				online_time = #{onlineTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.fs.comm.model.TApplication">
+		update t_application
+		set name = #{name,jdbcType=VARCHAR},
+		parameter_type = #{parameterType,jdbcType=VARCHAR},
+		developer_name = #{developerName,jdbcType=VARCHAR},
+		grader = #{grader,jdbcType=VARCHAR},
+		apply_parameter = #{applyParameter,jdbcType=VARCHAR},
+		synopsis = #{synopsis,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		online_time = #{onlineTime,jdbcType=TIMESTAMP},
+		is_delete = #{isDelete,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="getApplicationList" resultType="hashmap">
+		select * from t_application where is_delete='n'
+		<if test="companyid!= null and companyid!= ''">
+			and companyid=#{companyid}
+		</if>
+		<if test="status!= null and status!= ''">
+			and status=#{status}
+		</if>
+		<if test="name!= null and name!= ''">
+			and name like CONCAT('%',#{name},'%')
+		</if>
+		order by id desc
+	</select>
+
+	<update id="delAppManagerById">
+		update t_application set is_delete='y' where id=#{id}
+	</update>
+
+	<update id="onlineAppManager">
+		update t_application set status='已上线' where id=#{id}
+	</update>
+
+	<update id="unlineAppManager">
+		update t_application set status='已下线' where id=#{id}
+	</update>
+
+	<update id="undercarriageAppManager">
+		update t_application set status='已下架' where id=#{id}
+	</update>
+
+	<select id="queryAllParameterType">
+		update t_application set status='已下架' where id=#{id}
+	</select>
+
+
+	<select id="queryAllName" resultMap="BaseResultMap">
+		select * from t_application where is_delete='n'
+	</select>
+
+	<select id="queryAppManagerByName" resultMap="BaseResultMap">
+		select * from t_application where name=#{name}
+	</select>
+</mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.TitleMapper">
+	<resultMap id="BaseResultMap" type="com.fs.comm.model.Title">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+		<result column="create_time" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="companyid" property="companyid" jdbcType="BIGINT" />
+
+		<result column="operatorid" property="operatorid" jdbcType="BIGINT" />
+		<result column="dealerid" property="dealerid" jdbcType="BIGINT" />
+	</resultMap>
+
+	<!-- 添加字幕 -->
+	<insert id="insertTitle" parameterType="com.fs.comm.model.Title"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into
+		t_title
+		(id,name,content,status,create_time,is_delete,companyid,operatorid,dealerid)
+		values(#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},#{isDelete,jdbcType=VARCHAR}
+		,#{companyid,jdbcType=BIGINT}
+		,#{operatorid,jdbcType=BIGINT}
+		,#{dealerid,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<select id="getAllTitleInfo" resultType="hashmap">
+		select * from t_title where is_delete='n'
+		<if test="companyid!= null and companyid!= ''">
+			and companyid=#{companyid}
+		</if>
+		<if test="context!= null and context!= ''">
+			and content like CONCAT('%',#{context},'%')
+		</if>
+		<if test="context!= null and context!= ''">
+			or name like CONCAT('%',#{context},'%')
+		</if>
+		order by create_time desc
+	</select>
+
+	<update id="delTitleById">
+		update t_title set is_delete='y' where id=#{id}
+	</update>
+
+	<update id="agreeTitleById">
+		update t_title set status='已审核' where id=#{id}
+	</update>
+
+	<update id="unAgreeTitleById">
+		update t_title set status='未审核' where id=#{id}
+	</update>
+
+	<update id="updateTitleById" parameterType="com.fs.comm.model.Title">
+		update t_title
+		<set>
+			<if test="name!= null and name!= ''">
+				name=#{name},
+			</if>
+			<if test="content!= null and content!= ''">
+				content=#{content}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+
+	<select id="queryTitleById" resultMap="BaseResultMap">
+		select * from t_title
+		where id=#{id}
+	</select>
+
+	<update id=""></update>
+</mapper>
+  
+ 

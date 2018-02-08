@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.comm.mapper.DepartmentMapper"> 
+<resultMap type="com.fs.comm.model.Department" id="department">
+   <result property="id" column="ID"  />
+   <result property="depcode" column="depcode" />
+   <result property="depaddress" column="depaddress" />
+   <result property="telephone" column="telephone"  />
+   <result property="liaisonper" column="liaisonper"  />
+   <result property="contracted" column="contracted"  />
+   <result property="flag" column="flag"  />
+   <result property="operatetime" column="operatetime"  />
+   <result property="operator" column="operator"  />
+   <result property="remark" column="remark"  />
+   <result property="depname" column="depname"  />
+   <result property="depparent" column="depparent"  />
+   <result property="dorder" column="dorder"  />
+   <result property="levels" column="levels"  />
+   <result property="deppath" column="deppath"  />
+   <result property="depyear" column="depyear"  />
+   <result property="cnum" column="cnum"  />
+  </resultMap>
+	<insert id="saveDepartment" parameterType="com.fs.comm.model.Department" >
+		insert into
+		department(depcode,depaddress,telephone,liaisonper,contracted,flag,operatetime,operator,remark,depname,depparent,dorder,levels,deppath,depyear)
+		values(#{depcode,jdbcType=VARCHAR},#{depaddress,jdbcType=VARCHAR},#{telephone,jdbcType=VARCHAR},#{liaisonper,jdbcType=VARCHAR},#{contracted,jdbcType=VARCHAR},#{flag,jdbcType=INTEGER},
+		#{operatetime,jdbcType=DATE},#{operator,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{depname,jdbcType=VARCHAR},#{depparent,jdbcType=INTEGER},#{dorder,jdbcType=INTEGER},#{levels,jdbcType=INTEGER},#{deppath,jdbcType=VARCHAR},#{depyear,jdbcType=INTEGER})
+	</insert>
+	<update id="updateDepartment" parameterType="com.fs.comm.model.Department" >
+		update department set depname=#{depname},depcode=#{depcode},depaddress=#{depaddress},telephone=#{telephone},liaisonper=#{liaisonper},contracted=#{contracted},remark=#{remark},depparent=#{depparent}
+		,depyear=#{depyear}
+		where id=#{id}
+	</update>
+	<select id="loadDepartment" resultMap="department"  >
+		select * from department where id=#{id} 
+	</select>
+	<select id="selectDepartment" resultMap="department">
+		select * from department where depparent =  '14'
+	</select>
+	<delete id="delById" >
+		delete from department where id=#{id}
+	</delete>
+	<select id="countDepartment" resultType="java.lang.Integer" >
+      select count(*) from department where 1=1
+      <if test="depparent!= null and depparent!= ''">  
+	  and  depparent=#{depparent} 
+	</if>
+    </select>
+    
+    <!--浏览部门列表  -->
+	<select id="browseDepartment" resultMap="department">
+		select tt.*,(select count(1) from department t where t.depparent=tt.id) cnum from department tt
+         <trim prefix="where" prefixOverrides="AND |OR ">
+		<if test="id!= null and id!= ''">
+			and id=#{id}
+		</if>
+		<if test="notid!= null and notid!= ''">
+			and id!=#{notid}
+		</if>
+		<if test="depparent!= null and depparent!= ''">
+			and depparent=#{depparent}
+		</if>
+		<if test="depname!= null and depname!= ''">
+			and depname=#{depname}
+		</if>
+		</trim>
+	</select>
+	
+</mapper>

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.TStbGroupMapper">
+	<resultMap id="BaseResultMap" type="com.fs.comm.model.TStbGroup">
+		<id column="sid" property="sid" jdbcType="BIGINT" />
+		
+		<result column="companyid" property="companyid" jdbcType="BIGINT" />
+		<result column="operatorid" property="operatorid" jdbcType="BIGINT" />
+		<result column="dealerid" property="dealerid" jdbcType="BIGINT" />
+		
+		<result column="groupnum" property="groupnum" jdbcType="INTEGER" />
+		<result column="groupname" property="groupname" jdbcType="VARCHAR" />
+		<result column="comm" property="comm" jdbcType="VARCHAR" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+
+		<result column="epgfirst" property="epgfirst" jdbcType="VARCHAR" />
+		<result column="epgsecond" property="epgsecond" jdbcType="VARCHAR" />
+
+		<result column="wifi" property="wifi" jdbcType="VARCHAR" />
+		<result column="wifipwd" property="wifipwd" jdbcType="VARCHAR" />
+		<result column="epghome" property="epghome" jdbcType="VARCHAR" />
+		<result column="vod" property="vod" jdbcType="VARCHAR" />
+		<result column="applicationup" property="applicationup"
+			jdbcType="VARCHAR" />
+		<result column="appblacklist" property="appblacklist" jdbcType="VARCHAR" />
+		<result column="openpic" property="openpic" jdbcType="VARCHAR" />
+		<result column="openvideo" property="openvideo" jdbcType="VARCHAR" />
+		<result column="openlogo" property="openlogo" jdbcType="VARCHAR" />
+		<result column="romup" property="romup" jdbcType="VARCHAR" />
+		<result column="backupserver" property="backupserver" jdbcType="VARCHAR" />
+		<result column="ntp" property="ntp" jdbcType="VARCHAR" />
+		<result column="routerpower" property="routerpower" jdbcType="VARCHAR" />
+		<result column="presn" property="presn" jdbcType="VARCHAR" />
+		<result column="mediaserverid" property="mediaserverid"
+			jdbcType="VARCHAR" />
+		<result column="logserver" property="logserver" jdbcType="VARCHAR" />
+		<result column="noticepic" property="noticepic" jdbcType="VARCHAR" />
+		<result column="welcome" property="welcome" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		sid,companyid,operatorid,dealerid, groupnum, groupname,
+		comm, createtime,
+
+		epgfirst,epgsecond,
+		wifi,wifipwd,epghome,vod,applicationup,
+		appblacklist,openpic,openvideo,openlogo,
+		romup,backupserver,ntp,
+		routerpower,
+		presn,mediaserverid,logserver,noticepic,
+		welcome
+	</sql>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<!-- 获取最大组编号 -->
+	<select id="getMaxStbGroupNum" resultType="java.lang.Integer">
+		select max(groupnum)
+		from t_stb_group
+	</select>
+
+	<!-- 获取列表 -->
+	<select id="getGroupList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select * from t_stb_group where 1=1
+		<if test="sid!=null and sid!=''">
+			and sid =#{sid}
+		</if>
+		<if test="companyid !=null and companyid !=''">
+			and companyid =#{companyid}
+		</if>
+		<if test="operatorid !=null ">
+			and operatorid =#{operatorid}
+		</if>
+		<if test="dealerid !=null ">
+			and dealerid =#{dealerid}
+		</if>
+		<if test="groupname!=null and groupname!=''">
+			and groupname =#{groupname}
+		</if>
+		<if test="content!=null and content!=''">
+			and (groupnum like '%${content}%'
+			or groupname like '%${content}%')
+		</if>
+	</select>
+
+	<!--精确查找 -->
+	<select id="getGroup" parameterType="com.fantastic.TBaseExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_stb_group
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<!-- 查询是否存在 -->
+	<select id="countGroup" resultType="java.lang.Integer">
+		select count(1) from t_stb_group b where 1=1
+		<if test="sid!= null and sid!= ''">
+			and b.sid=#{sid}
+		</if>
+	</select>
+
+	<!-- 获取详情 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_stb_group
+		where sid = #{sid,jdbcType=BIGINT}
+	</select>
+
+	<!--删除 -->
+	<delete id="deleteGroup" parameterType="java.lang.Long">
+		delete from t_stb_group
+		where sid = #{sid,jdbcType=BIGINT}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insertGroup" parameterType="com.fs.comm.model.TStbGroup">
+		insert into t_stb_group
+		(sid, groupnum, groupname,
+		comm, createtime,
+
+		epgfirst,epgsecond,
+		wifi,wifipwd,epghome,vod,applicationup,
+		appblacklist,openpic,openvideo,openlogo,
+		romup,backupserver,ntp,
+		routerpower,
+		presn,mediaserverid,logserver,noticepic,
+		companyid,welcome
+		,operatorid
+		,dealerid
+		)
+		values (
+		#{sid,jdbcType=BIGINT}, #{groupnum,jdbcType=INTEGER},
+		#{groupname,jdbcType=VARCHAR},
+		#{comm,jdbcType=VARCHAR},
+		#{createtime,jdbcType=TIMESTAMP},
+
+		#{epgfirst,jdbcType=VARCHAR},#{epgsecond,jdbcType=VARCHAR},
+		#{wifi,jdbcType=VARCHAR},
+		#{wifipwd,jdbcType=VARCHAR},#{epghome,jdbcType=VARCHAR},
+		#{vod,jdbcType=VARCHAR},#{applicationup,jdbcType=VARCHAR},#{appblacklist,jdbcType=VARCHAR},
+		#{openpic,jdbcType=VARCHAR},
+		#{openvideo,jdbcType=VARCHAR},#{openlogo,jdbcType=VARCHAR},
+		#{romup,jdbcType=VARCHAR},#{backupserver,jdbcType=VARCHAR},#{ntp,jdbcType=VARCHAR},
+		#{routerpower,jdbcType=VARCHAR},
+		#{presn,jdbcType=VARCHAR},#{mediaserverid,jdbcType=VARCHAR},
+		#{logserver,jdbcType=VARCHAR},#{noticepic,jdbcType=VARCHAR},
+		#{companyid,jdbcType=BIGINT},#{welcome,jdbcType=BIGINT}
+		,#{operatorid,jdbcType=BIGINT}
+		,#{dealerid,jdbcType=BIGINT}
+		)
+	</insert>
+
+
+	<insert id="insertSelective" parameterType="com.fs.comm.model.TStbGroup">
+		insert into t_stb_group
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="groupnum != null">
+				groupnum,
+			</if>
+			<if test="groupname != null">
+				groupname,
+			</if>
+			<if test="comm != null">
+				comm,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=BIGINT},
+			</if>
+			<if test="groupnum != null">
+				#{groupnum,jdbcType=INTEGER},
+			</if>
+			<if test="groupname != null">
+				#{groupname,jdbcType=VARCHAR},
+			</if>
+			<if test="comm != null">
+				#{comm,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 修改机顶盒组信息 -->
+	<update id="updateStbGroupInfo" parameterType="com.fs.comm.model.TStbGroup">
+		update t_stb_group
+		<set>
+			<if test="groupnum != null">
+				groupnum = #{groupnum,jdbcType=INTEGER},
+			</if>
+			<if test="groupname != null">
+				groupname = #{groupname,jdbcType=VARCHAR},
+			</if>
+			<if test="comm != null">
+				comm = #{comm,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+
+			<if test="epgfirst != null and epgfirst !=''">
+				epgfirst = #{epgfirst,jdbcType=VARCHAR},
+			</if>
+			<if test="epgsecond != null and epgsecond !=''">
+				epgsecond = #{epgsecond,jdbcType=VARCHAR},
+			</if>
+			<if test=" wifi != null and  wifi  !=''">
+				wifi = #{ wifi ,jdbcType=VARCHAR},
+			</if>
+			<if test="wifipwd != null and  wifipwd  !=''">
+				wifipwd = #{ wifipwd ,jdbcType=VARCHAR},
+			</if>
+			<if test="  epghome != null and  epghome  !=''">
+				epghome = #{ epghome ,jdbcType=VARCHAR},
+			</if>
+			<if test=" vod  != null and  vod  !=''">
+				vod = #{ vod ,jdbcType=VARCHAR},
+			</if>
+			<if test="  applicationup != null and applicationup   !=''">
+				applicationup = #{ applicationup ,jdbcType=VARCHAR},
+			</if>
+			<if test=" appblacklist  != null and  appblacklist  !=''">
+				appblacklist = #{ appblacklist ,jdbcType=VARCHAR},
+			</if>
+			<if test=" openpic  != null and openpic   !=''">
+				openpic = #{ openpic ,jdbcType=VARCHAR},
+			</if>
+			<if test=" openvideo  != null and  openvideo  !=''">
+				openvideo = #{ openvideo ,jdbcType=VARCHAR},
+			</if>
+			<if test=" openlogo  != null and  openlogo  !=''">
+				openlogo = #{ openlogo ,jdbcType=VARCHAR},
+			</if>
+			<if test=" romup  != null and  romup  !=''">
+				romup = #{ romup ,jdbcType=VARCHAR},
+			</if>
+			<if test=" backupserver  != null and backupserver   !=''">
+				backupserver = #{ backupserver ,jdbcType=VARCHAR},
+			</if>
+			<if test=" ntp  != null and  ntp  !=''">
+				ntp = #{ ntp ,jdbcType=VARCHAR},
+			</if>
+			<if test=" routerpower  != null and routerpower   !=''">
+				routerpower = #{ routerpower ,jdbcType=VARCHAR},
+			</if>
+			<if test=" presn  != null and  presn  !=''">
+				presn = #{ presn ,jdbcType=VARCHAR},
+			</if>
+			<if test=" mediaserverid  != null and  mediaserverid  !=''">
+				mediaserverid = #{ mediaserverid ,jdbcType=VARCHAR},
+			</if>
+			<if test=" logserver  != null and  logserver  !=''">
+				logserver = #{ logserver ,jdbcType=VARCHAR},
+			</if>
+			<if test="  noticepic != null and  noticepic  !=''">
+				noticepic = #{ noticepic ,jdbcType=VARCHAR},
+			</if>
+			<if test="  welcome != null and  welcome  !=''">
+				welcome = #{ welcome ,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=BIGINT}
+	</update>
+
+	<!-- 修改 -->
+	<update id="updateByPrimaryKey" parameterType="com.fs.comm.model.TStbGroup">
+		update t_stb_group
+		set groupnum = #{groupnum,jdbcType=INTEGER},
+		groupname =
+		#{groupname,jdbcType=VARCHAR},
+		comm = #{comm,jdbcType=VARCHAR},
+		createtime = #{createtime,jdbcType=TIMESTAMP},
+
+		epgfirst=#{epgfirst,jdbcType=VARCHAR},epgsecond=#{epgsecond,jdbcType=VARCHAR},
+		wifi=#{wifi,jdbcType=VARCHAR},
+		wifipwd=#{wifipwd,jdbcType=VARCHAR},epghome=#{epghome,jdbcType=VARCHAR},
+		vod=#{vod,jdbcType=VARCHAR},applicationup=#{applicationup,jdbcType=VARCHAR},
+		appblacklist=#{appblacklist,jdbcType=VARCHAR},
+		openpic=#{openpic,jdbcType=VARCHAR},
+		openvideo=#{openvideo,jdbcType=VARCHAR},openlogo=#{openlogo,jdbcType=VARCHAR},
+		romup=#{romup,jdbcType=VARCHAR},backupserver=#{backupserver,jdbcType=VARCHAR},
+		ntp=#{ntp,jdbcType=VARCHAR},
+		routerpower=#{routerpower,jdbcType=VARCHAR},
+		presn=#{presn,jdbcType=VARCHAR},mediaserverid=#{mediaserverid,jdbcType=VARCHAR},
+		logserver=#{logserver,jdbcType=VARCHAR},noticepic=#{noticepic,jdbcType=VARCHAR}
+
+		where sid = #{sid,jdbcType=BIGINT}
+	</update>
+
+	<select id="getTStbGroupByStbGroup"  parameterType="java.lang.String" resultMap="BaseResultMap">
+	
+		select * from t_stb_group where sid=#{groupnum}
+	</select>
+	
+	<select id="getTStbGroupByGroupName"  parameterType="java.lang.String" resultMap="BaseResultMap">
+	
+		select * from t_stb_group where groupname=#{groupname}
+	</select>
+	
+	<select id="getAllStbGroup" resultMap="BaseResultMap">
+		select * from t_stb_group 
+	</select>
+
+</mapper>

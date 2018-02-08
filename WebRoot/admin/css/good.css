@@ -1,0 +1,379 @@
+.addGoodsContainer{
+	position:relative;
+}
+.addGoodsContainer .addProsess{
+	position:relative;
+}
+.addGoodsContainer .addProsess ul{
+	margin:0;
+	padding:0;
+}
+.addGoodsContainer .addProsess ul:after{
+	content:'';
+	display:block;
+	clear:both;
+}
+.addGoodsContainer .addProsess ul li{
+	display:block;
+	float:left;
+	padding:3px 18px;
+	border:1px solid #d7d7d7;
+	text-align:center;
+	cursor:default;
+}
+.addGoodsContainer .addProsess ul li.current{
+	background:#1963aa;
+	color:#fff;
+	border:1px solid #1963aa;
+}
+.addGoodsContainer .addContent{
+	position:relative;
+	margin-top:20px;
+}
+.addGoodsContainer .addContent .contentInfo{
+	min-width:700px;
+}
+.contentInfo .infoItem{
+	position:relative;
+	display:none;
+}
+.contentInfo .infoItem.active{
+	display:block;
+}
+
+.addContent .admin-s-body .admin-s{
+	position:relative;
+	padding-left: 120px;
+	display:block;
+}
+.addContent .modal-real-body .admin-s-body span.title{
+	float:left;
+	display:block;
+	height:28px;
+	line-height:28px;
+}
+
+.addContent .admin-s-body.topSec .admin-s input{width:100%;
+	max-width: 1097px;
+}
+.addContent .admin-s-body.topSec{
+	min-width:49%;
+}
+.addContent .admin-s-body .kfame{
+	display:inline!important;
+	margin-right:10px;
+}
+.addContent .admin-s-body .kfame input[type="checkbox"],.addContent .admin-s-body .kfame input[type="radio"]{
+	position:relative;
+	margin-top:8px;
+}
+.addContent .admin-s-body .kfame label{
+	margin-bottom:6px;
+	margin-left:2px;
+}
+.addButtom {
+	margin-top:20px;
+	height:41px; 
+}
+#prevBtn,#saveBtn{
+	display:none;
+}
+
+/*���ͼƬ*/
+.picInfo{
+	position:relative;
+	margin-top:10px;
+}
+.picInfo:after{
+	content:'';
+	display:block;
+	clear:both;
+}
+.picInfo .infoItem{
+	width:150px;
+	border:1px solid #d7d7d7;
+	height:180px;
+	background:#fafafa;
+	float:left;
+	margin:0 20px 10px 0;
+	display:block;
+	position:relative;
+	cursor:pointer;
+	overflow:hidden;
+}
+.infoItem .upboot{
+	height:32px;
+	position:relative;
+}
+.upboot .file{
+	    height: 30px;
+    overflow: hidden;
+    width: 164px;
+    position: absolute;
+    left: -90px;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    /* z-index: 9999; */
+    /* display: block; */
+    cursor: pointer;
+}
+.infoItem .upboot button{
+	    width: 74px;
+    border: 0;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+}
+.infoItem .upboot button.upButt{
+	background:#1b6aaa;
+}
+.infoItem .upboot button.choButt{
+	background:#87b87f;
+}
+.infoItem .upboot button.removeButt{
+	width:74px;
+	background:#d15b47;
+}
+.picInfo .infoItem:hover{
+	background:#fafafa;
+}
+.picInfo .infoItem .picBox{
+	display:table;
+	height:148px;
+	width:148px;
+}
+.picInfo .infoItem .picImg{
+    /*display: table-cell;*/
+    width: 148px;
+    height: 148px;
+    text-align: center;
+    vertical-align: middle;
+    *display: block;*font-size: 131px;
+	*font-family:Arial;
+}
+.picInfo .infoItem .picImg:after{
+	content:'';width:0; height:100%; display:inline-block; vertical-align:middle; overflow:hidden;
+}
+.picInfo .infoItem .picImg img{
+	max-width:148px;
+	vertical-align:middle;
+}
+.picImg a{
+	display: block;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    margin-top: -19%;
+}
+.picInfo .infoItem a.remove{
+	display:none;
+}
+.picInfo .infoItem a.remove i{
+	/* display:none; */
+	color:#d15b47;
+	font-size:20px;
+	position:absolute;
+	top:0px;
+	right:1px;
+}
+
+
+/**/
+.sxClim{position:relative;padding-bottom:8px;}
+.sxClim .climTitle{
+	padding:4px 0;
+}
+.sxClim input{width:450px;}
+.sxWord,.sxPic{
+	position:relative;
+}
+.sxbox{
+display: -webkit-box;
+padding:4px 0;
+position:relative;
+}
+.sxbox:after{
+	content:'';
+	clear:both;
+	display:block;
+}
+
+.sxbox .inp{
+	width:200px;
+	margin-right:20px;
+	*display:inline;
+}
+.sxbox .inp input{
+	width:100%;
+}
+.sxPic .sxbox .inp input{
+	margin-top:30px;
+}
+.sxbox .pic{
+	width:52px;
+	height:52px;
+	margin-right:20px;
+	*display:inline;
+	border:1px dashed #ccc;
+}
+.sxbox .remove{
+	line-height:28px;
+	cursor:pointer;
+}
+.sxbox .pic .img{
+	width:50px;
+	height:50px;
+	*display: inline;*font-size: 87.5px;
+	text-align: center;
+    vertical-align: middle;
+}
+.sxbox .pic .img:after{
+	content:'';width:0; height:100%; display:inline-block; vertical-align:middle; overflow:hidden;
+}
+.sxbox .pic img{
+	max-width:50px;
+	vertical-align: middle;
+}
+.sxPic .sxbox .remove{
+	line-height:50px;
+	*display:inline;
+}
+.sxContent{
+	position:relative;
+	padding:8px 0;
+	border-top:1px solid #d7d7d7;
+}
+.sxContent a.addSx{
+	color:#242424;
+}
+.sxContent a.addSx:hover{
+	color:#428bca
+}
+
+/**/
+.jfcontent:after{
+	content:'';
+	display:block;
+	clear:both
+}
+.jfBox{
+	border:1px solid #d7d7d7;
+	width:500px;
+	float:left;
+	margin:0 20px 10px 0;
+}
+.jfBox .JfTitle{
+	height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    background: #fafafa;
+    padding-left: 15px;
+}
+.jfWord{
+	    padding: 10px 20px;
+}
+.jfWord .jfreward{
+	padding:4px 0;
+}
+.jfWord .jfreward input[type="radio"]{
+	position:relative;
+	margin-top:2px;
+	margin-right:8px;
+}
+.jfWord .jfreward input[type="text"]{
+	margin:0 5px;
+	width:50px;
+}
+.searchCont{
+	display:inline-block;
+	margin-right:20px;
+}
+.btnAd{
+	margin-top: -3px;
+    padding: 2px 5px;
+}
+.tableInfo{
+	width:900px;
+	margin-top:20px;
+}
+.tableInfo table .bh{
+	width:120px;
+}
+.tableInfo table .name{
+	width:120px;
+}
+.tableInfo table .price{
+	width:120px;
+}
+.tableInfo table .xl{
+	width:120px;
+}
+.tableInfo table .fl{
+	width:200px;
+}
+.tableInfo table .kc{
+	width:120px;
+}
+.tableInfo table .zt{
+	width:100px;
+}
+.tableInfo table th{
+	text-align:center;
+	padding:8px 0;
+	background:#fafafa;
+	border:1px solid #d7d7d7;
+	border-bottom:0;
+}
+.tableInfo table td{
+	text-align:center;
+	padding:5px;
+	border:1px solid #d7d7d7
+}
+.tableInfo .modaltitle{
+	padding-bottom:10px;
+	font-size:16px;
+}
+.tableInfo .scrolltable{
+	height:225px;
+	position:relative;
+}
+
+.sxbox div{
+	display:inline-block;
+	position:relative;
+}
+
+.sxPicFile{
+	height: 50px;
+    overflow: hidden;
+    width: 50px;
+    position: absolute;
+    left:0px;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    /* z-index: 9999; */
+    /* display: block; */
+    cursor: pointer;
+}
+
+
+table.sxtable{
+	width:auto!important
+}
+.sxtable thead th{
+	padding:8px 0;
+	min-width:100px;
+	background:#d7d7d7;
+}
+.sxtable thead th.tx{
+	max-width:130px!important
+}
+.sxtable tbody td.tx{
+	max-width:100px!important
+}
+.sxtable tbody input{
+	padding:3px;
+	width:80px;
+}

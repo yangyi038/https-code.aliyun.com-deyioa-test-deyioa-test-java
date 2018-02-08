@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.comm.mapper.RoleMapper">
+	<resultMap type="com.fs.comm.model.Role" id="role">
+		<result property="id" column="ID" />
+		<result property="companyid" column="companyid" />
+		<result property="rolename" column="ROLENAME" />
+		<result property="menuid" column="MENUID" />
+		<result property="dataarea" column="DATAAREA" />
+		
+		<result property="touser" column="touser" />
+	</resultMap>
+
+	<select id="loadRole" resultMap="role">
+		select * from sysrole
+		where
+		id=#{id}
+	</select>
+
+	<select id="browseRole" resultMap="role">
+		select * from sysrole where 1=1
+		<if test="id != null ">
+			and id =#{id}
+		</if>
+		<if test="rolename!= null and rolename!= ''">
+			and rolename =#{rolename}
+		</if>
+		<if test="notid!= null ">
+			and id !=#{notid}
+		</if>
+
+		<if test="touser != null ">
+			and touser=#{touser}
+		</if>
+	</select>
+
+	<!-- 添加角色 -->
+	<insert id="saveRole" parameterType="com.fs.comm.model.Role">
+		insert into
+		sysrole(companyid,touser,rolename,menuid,dataarea)
+		values(
+		#{companyid,jdbcType=BIGINT}
+		,#{touser,jdbcType=INTEGER}
+		,#{rolename,jdbcType=VARCHAR}
+		,#{menuid,jdbcType=VARCHAR}
+		,#{dataarea,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateRole" parameterType="com.fs.comm.model.Role">
+		update sysrole set
+		rolename=#{rolename},menuid=#{menuid},dataarea=#{dataarea}
+		where
+		id=#{id}
+	</update>
+
+	<delete id="delById">
+		delete from sysrole where id=#{id}
+	</delete>
+
+
+	<resultMap type="com.fs.comm.model.Sysmenu" id="sysmenu">
+		<result property="id" column="ID" />
+		<result property="functioncode" column="FUNCTIONCODE" />
+		<result property="menulink" column="MENULINK" />
+		<result property="menuname" column="MENUNAME" />
+		<result property="menuparent" column="MENUPARENT" />
+		<result property="menuorder" column="MENUORDER" />
+		<result property="valid" column="VALID" />
+		<result property="addtime" column="ADDTIME" />
+		<result property="functiontype" column="FUNCTIONTYPE" />
+		<result property="img" column="IMG" />
+		<result property="cssclass" column="CSSCLASS" />
+	</resultMap>
+
+	<!-- 获取菜单列表 -->
+	<select id="getmenu" resultMap="sysmenu" parameterType="java.util.Map">
+		select * from sysmenu t where t.valid=1
+		<if test="menuparent!= null and menuparent!= ''">
+			and t.menuparent=#{menuparent}
+		</if>
+		<!-- 系统管理员：不能看到运营商管理员 -->
+		<!-- <if test="admintype==0"> and t.id not in (97) </if> -->
+		<!-- 运营商： -->
+		<if test="admintype==1">
+			and t.id not in (3,4,96,104,105)
+		</if>
+		<if test="admintype==2">
+			and t.id not in (1)
+		</if>
+		order by t.path,t.menuparent
+	</select>
+
+	<select id="countSysuser" resultType="java.lang.Integer">
+		select count(*) from
+		sysuser where privilege=#{id}
+	</select>
+
+</mapper>

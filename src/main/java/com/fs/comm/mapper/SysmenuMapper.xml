@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.SysmenuMapper">
+	<resultMap id="BaseResultMap" type="com.fs.comm.model.Sysmenu">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="functioncode" property="functioncode" jdbcType="VARCHAR" />
+		<result column="menulink" property="menulink" jdbcType="VARCHAR" />
+		<result column="menuname" property="menuname" jdbcType="VARCHAR" />
+		<result column="menuparent" property="menuparent" jdbcType="INTEGER" />
+		<result column="menuorder" property="menuorder" jdbcType="INTEGER" />
+		<result column="valid" property="valid" jdbcType="INTEGER" />
+		<result column="addtime" property="addtime" jdbcType="DATE" />
+		<result column="functiontype" property="functiontype" jdbcType="INTEGER" />
+		<result column="img" property="img" jdbcType="VARCHAR" />
+		<result column="cssclass" property="cssclass" jdbcType="VARCHAR" />
+		<result column="path" property="path" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, functioncode, menulink, menuname, menuparent,
+		menuorder, valid,
+		addtime, functiontype,
+		img, cssclass, path
+	</sql>
+
+	<!--浏览系统菜单列表 -->
+	<select id="browseSysmenu" resultMap="BaseResultMap">
+		select tt.*,(select count(1) from sysmenu t where t.menuparent=tt.id)
+		cnum from sysmenu tt
+		where tt.valid=1 
+		<if test="id!= null and id!= ''">
+			and tt.id=#{id}
+		</if>
+		<if test="notid!= null and notid!= ''">
+			and tt.id!=#{notid}
+		</if>
+		<if test="menuparent != null and  menuparent != ''">
+			and tt.menuparent=#{menuparent}
+		</if>
+		<if test="menuname != null and menuname != ''">
+			and tt.menuname=#{menuname}
+		</if>
+	</select>
+
+	<!-- 获取菜单信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sysmenu
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<!-- 添加系统菜单 -->
+	<insert id="insertSelectiveSysmenu" parameterType="com.fs.comm.model.Sysmenu"
+		useGeneratedKeys="true" keyProperty="sid">
+		insert into sysmenu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="functioncode != null">
+				functioncode,
+			</if>
+			<if test="menulink != null">
+				menulink,
+			</if>
+			<if test="menuname != null">
+				menuname,
+			</if>
+			<if test="menuparent != null">
+				menuparent,
+			</if>
+			<if test="menuorder != null">
+				menuorder,
+			</if>
+			<if test="valid != null">
+				valid,
+			</if>
+			<if test="addtime != null">
+				addtime,
+			</if>
+			<if test="functiontype != null">
+				functiontype,
+			</if>
+			<if test="img != null">
+				img,
+			</if>
+			<if test="cssclass != null">
+				cssclass,
+			</if>
+			<if test="path != null">
+				path,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="functioncode != null">
+				#{functioncode,jdbcType=VARCHAR},
+			</if>
+			<if test="menulink != null">
+				#{menulink,jdbcType=VARCHAR},
+			</if>
+			<if test="menuname != null">
+				#{menuname,jdbcType=VARCHAR},
+			</if>
+			<if test="menuparent != null">
+				#{menuparent,jdbcType=INTEGER},
+			</if>
+			<if test="menuorder != null">
+				#{menuorder,jdbcType=INTEGER},
+			</if>
+			<if test="valid != null">
+				#{valid,jdbcType=INTEGER},
+			</if>
+			<if test="addtime != null">
+				#{addtime,jdbcType=DATE},
+			</if>
+			<if test="functiontype != null">
+				#{functiontype,jdbcType=INTEGER},
+			</if>
+			<if test="img != null">
+				#{img,jdbcType=VARCHAR},
+			</if>
+			<if test="cssclass != null">
+				#{cssclass,jdbcType=VARCHAR},
+			</if>
+			<if test="path != null">
+				#{path,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!--删除 -->
+	<delete id="deleteSysmenuById" parameterType="java.lang.Integer">
+		delete from sysmenu
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insert" parameterType="com.fs.comm.model.Sysmenu">
+		insert into sysmenu (id,
+		functioncode, menulink,
+		menuname, menuparent,
+		menuorder,
+		valid, addtime,
+		functiontype,
+		img, cssclass, path
+		)
+		values
+		(#{id,jdbcType=INTEGER},
+		#{functioncode,jdbcType=VARCHAR},
+		#{menulink,jdbcType=VARCHAR},
+		#{menuname,jdbcType=VARCHAR},
+		#{menuparent,jdbcType=INTEGER},
+		#{menuorder,jdbcType=INTEGER},
+		#{valid,jdbcType=INTEGER},
+		#{addtime,jdbcType=DATE},
+		#{functiontype,jdbcType=INTEGER},
+		#{img,jdbcType=VARCHAR},
+		#{cssclass,jdbcType=VARCHAR},
+		#{path,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 修改菜单信息 -->
+	<update id="updateSysmenu" parameterType="com.fs.comm.model.Sysmenu">
+		update sysmenu
+		<set>
+			<if test="functioncode != null">
+				functioncode = #{functioncode,jdbcType=VARCHAR},
+			</if>
+			<if test="menulink != null">
+				menulink = #{menulink,jdbcType=VARCHAR},
+			</if>
+			<if test="menuname != null">
+				menuname = #{menuname,jdbcType=VARCHAR},
+			</if>
+			<if test="menuparent != null">
+				menuparent = #{menuparent,jdbcType=INTEGER},
+			</if>
+			<if test="menuorder != null">
+				menuorder = #{menuorder,jdbcType=INTEGER},
+			</if>
+			<if test="valid != null">
+				valid = #{valid,jdbcType=INTEGER},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=DATE},
+			</if>
+			<if test="functiontype != null">
+				functiontype = #{functiontype,jdbcType=INTEGER},
+			</if>
+			<if test="img != null">
+				img = #{img,jdbcType=VARCHAR},
+			</if>
+			<if test="cssclass != null">
+				cssclass = #{cssclass,jdbcType=VARCHAR},
+			</if>
+			<if test="path != null">
+				path = #{path,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+	<update id="updateByPrimaryKey" parameterType="com.fs.comm.model.Sysmenu">
+		update sysmenu
+		set
+		functioncode = #{functioncode,jdbcType=VARCHAR},
+		menulink =
+		#{menulink,jdbcType=VARCHAR},
+		menuname = #{menuname,jdbcType=VARCHAR},
+		menuparent = #{menuparent,jdbcType=INTEGER},
+		menuorder =
+		#{menuorder,jdbcType=INTEGER},
+		valid = #{valid,jdbcType=INTEGER},
+		addtime = #{addtime,jdbcType=DATE},
+		functiontype =
+		#{functiontype,jdbcType=INTEGER},
+		img = #{img,jdbcType=VARCHAR},
+		cssclass = #{cssclass,jdbcType=VARCHAR},
+		path =
+		#{path,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

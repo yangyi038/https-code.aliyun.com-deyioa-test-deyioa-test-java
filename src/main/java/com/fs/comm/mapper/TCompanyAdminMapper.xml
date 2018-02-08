@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fs.comm.mapper.TCompanyAdminMapper" >
+  <resultMap id="BaseResultMap" type="com.fs.comm.model.TCompanyAdmin" >
+    <id column="sid" property="sid" jdbcType="BIGINT" />
+    <result column="companyid" property="companyid" jdbcType="BIGINT" />
+    <result column="loginname" property="loginname" jdbcType="VARCHAR" />
+    <result column="loginpwd" property="loginpwd" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="privilege" property="privilege" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="admintype" property="admintype" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, companyid, loginname, loginpwd, phone, privilege, email, qq, token, createtime, admintype
+  </sql>
+  
+  <!--获取运营商管理员列表  -->
+  <select id="getAdminList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_company_admin
+    where 1=1 
+    <if test="sid != null and sid != ''">
+    	 and sid = #{sid,jdbcType=BIGINT}
+    </if>
+    <if test="companyid != null and companyid != ''">
+    	 and companyid = #{companyid,jdbcType=BIGINT}
+    </if>
+     <if test="loginname != null and loginname != ''">
+    	 and loginname = #{loginname,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <!-- 添加运营商管理员 ，返回其主键 -->
+  <insert id="insertAdmin" parameterType="com.fs.comm.model.TCompanyAdmin" useGeneratedKeys="true" keyProperty="sid">
+    insert into t_company_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="companyid != null" >
+        companyid,
+      </if>
+      <if test="loginname != null" >
+        loginname,
+      </if>
+      <if test="loginpwd != null" >
+        loginpwd,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="privilege != null" >
+        privilege,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="admintype != null" >
+        admintype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=BIGINT},
+      </if>
+      <if test="companyid != null" >
+        #{companyid,jdbcType=BIGINT},
+      </if>
+      <if test="loginname != null" >
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="loginpwd != null" >
+        #{loginpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        #{privilege,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="admintype != null" >
+        #{admintype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 删除管理员 -->
+   <delete id="deleteAdmin" parameterType="java.lang.Long" >
+    delete from t_company_admin
+    where sid = #{sid,jdbcType=BIGINT}
+  </delete>
+  
+  <!-- 登录验证 用户名，密码 -->
+  <select id="getAdmin" resultMap="BaseResultMap">
+		select * from t_company_admin where 1=1
+		<if test="loginname!= null and loginname!= ''">
+			and loginname=#{loginname}
+		</if>
+		<if test="loginpwd!= null and loginpwd!= ''">
+			and loginpwd=#{loginpwd}
+		</if>
+	</select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_company_admin
+    where sid = #{sid,jdbcType=BIGINT}
+  </select>
+ 
+  <insert id="insert" parameterType="com.fs.comm.model.TCompanyAdmin" >
+    insert into t_company_admin (sid, companyid, loginname, 
+      loginpwd, phone, privilege, 
+      email, qq, token, createtime, 
+      admintype)
+    values (#{sid,jdbcType=BIGINT}, #{companyid,jdbcType=BIGINT}, #{loginname,jdbcType=VARCHAR}, 
+      #{loginpwd,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{privilege,jdbcType=INTEGER}, 
+      #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{admintype,jdbcType=INTEGER})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.fs.comm.model.TCompanyAdmin" >
+    update t_company_admin
+    <set >
+      <if test="companyid != null" >
+        companyid = #{companyid,jdbcType=BIGINT},
+      </if>
+      <if test="loginname != null" >
+        loginname = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="loginpwd != null" >
+        loginpwd = #{loginpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        privilege = #{privilege,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="admintype != null" >
+        admintype = #{admintype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fs.comm.model.TCompanyAdmin" >
+    update t_company_admin
+    set companyid = #{companyid,jdbcType=BIGINT},
+      loginname = #{loginname,jdbcType=VARCHAR},
+      loginpwd = #{loginpwd,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      privilege = #{privilege,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      admintype = #{admintype,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=BIGINT}
+  </update>
+</mapper>
